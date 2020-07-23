@@ -1,0 +1,1 @@
+/// this is where all constants will be declared
