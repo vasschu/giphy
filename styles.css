@@ -1,0 +1,42 @@
+.navbar-left-logo {
+    font-size: 38px;
+    margin-left: 18px; 
+    color: rgba(236, 236, 236, 0.712);
+}
+
+.navbar-main {
+    display: inline-block;
+    width: 100%;
+    background-color: rgb(177, 177, 177);
+}
+
+.navbar-main a {
+    float: left;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 20px;
+    transition: 0.5s;
+    width: 90px
+  }
+  
+.navbar-main a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+body {
+    margin: 0px;
+}
+
+.navbar-left-logo {
+    float:left;
+}
+.navbar-right-menu {
+    float: right;
+    height: 100%;
+}
+
+
+
