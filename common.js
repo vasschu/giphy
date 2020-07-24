@@ -5,5 +5,6 @@ export const trendingEndpoint = 'http://api.giphy.com/v1/gifs/trending?';
 export const uploadEndpoint = 'http://upload.giphy.com/v1/gifs?';
 export const searchEndpoint = 'http://api.giphy.com/v1/gifs/search?';
 export const queurySearchDeclaration = '&q=';
-export const $uploadGif = $('#upload');
-export const $mainGifContainer = $('.main-gif-container');
+export const $uploadGifs = $('#upload');
+export const $mainGifsContainer = $('.main-gif-container');
+export const $trendingGifs = $('#trending');

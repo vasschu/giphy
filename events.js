@@ -1,10 +1,18 @@
 // this is where all events will go
 import * as common from './common.js'
+import { getTrending } from './service.js'
 
 $(() => {
-    common.$uploadGif.click((e) => {
+
+    common.$trendingGifs.click((e) => {
+        e.preventDefault()
+        common.$mainGifsContainer.empty();
+        getTrending();
+    });
+
+    common.$uploadGifs.click((e) => {
       e.preventDefault();
-      common.$mainGifContainer.html(`
+      common.$mainGifsContainer.html(`
           <div class="upload-gif-container">
             <div>
               <h2>Upload a Gif</h2>

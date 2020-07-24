@@ -2,7 +2,7 @@
 import * as common from './common.js'
 import { visualizeGif } from './functions.js'
   
-(() => {
+export const getTrending = () => {
     const $body = $('.main-gif-container')
     fetch(`${common.trendingEndpoint}${common.apiKey}`)
     .then(res => res.json())
@@ -10,5 +10,5 @@ import { visualizeGif } from './functions.js'
     .then(res => {
       res.forEach(element => visualizeGif(element.images.fixed_height.url, $body));
     });
-})();
-
+};
+getTrending()
