@@ -8,3 +8,4 @@ export const queurySearchDeclaration = '&q=';
 export const $uploadGifs = $('#upload');
 export const $mainGifsContainer = $('.main-gif-container');
 export const $trendingGifs = $('#trending');
+export const $leftNavbarLogo = $('.navbar-left-logo');

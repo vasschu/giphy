@@ -10,9 +10,15 @@ $(() => {
         getTrending();
     });
 
+    common.$leftNavbarLogo.click((e) => {
+        e.preventDefault()
+        common.$mainGifsContainer.empty();
+        getTrending();
+    });
+
     common.$uploadGifs.click((e) => {
-      e.preventDefault();
-      common.$mainGifsContainer.html(`
+        e.preventDefault();
+        common.$mainGifsContainer.html(`
           <div class="upload-gif-container">
             <div>
               <h2>Upload a Gif</h2>
