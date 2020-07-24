@@ -3,9 +3,7 @@
 export const visualizeGif = (gif, container) => {
     const $div = $(container);
     $div.append(`
-    <div>
-      <span><img src="${gif}"</span>
-    </div>
+      <span><img src="${gif}"></span>
     `);
 };
 

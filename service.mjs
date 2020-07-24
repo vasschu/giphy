@@ -8,7 +8,7 @@ import { visualizeGif } from './functions.mjs'
     .then(res => res.json())
     .then(data => data.data)
     .then(res => {
-      res.forEach(element => visualizeGif(element.images.downsized_large.url, $body));
+      res.forEach(element => visualizeGif(element.images.fixed_height.url, $body));
     })
     
 })()
