@@ -1,13 +1,13 @@
 .navbar-left-logo {
     font-size: 38px;
     margin-left: 18px; 
-    color: rgba(236, 236, 236, 0.712);
+    color: rgba(255, 255, 255, 0.603);
 }
 
 .navbar-main {
     display: inline-block;
     width: 100%;
-    background-color: rgb(177, 177, 177);
+    background-color: rgba(150, 149, 149, 0.479);
 }
 
 .navbar-main a {
