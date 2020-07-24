@@ -3,7 +3,7 @@ import * as common from './common.js'
 import { visualizeGif } from './functions.js'
   
 (() => {
-    const $body = $('body')
+    const $body = $('.main-gif-container')
     fetch(`${common.trendingEndpoint}${common.apiKey}`)
     .then(res => res.json())
     .then(data => data.data)
