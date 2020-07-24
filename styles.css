@@ -30,7 +30,8 @@
 
 .main-gif-container {
     margin: 200px;
-    margin-top: 70px
+    margin-top: 70px;
+    text-align: center;
 }
 
 body {
