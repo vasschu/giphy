@@ -1,0 +1,23 @@
+{
+  "name": "hack2-solution",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "doc": "jsdoc utils.js",
+    "eslint": "eslint .",
+    "eslint:fix": "eslint . --fix"
+  },
+  "keywords": [],
+  "author": "Telerik Academy",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/eslint": "^7.2.0",
+    "@types/jest": "^24.9.1",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.4.0",
+    "eslint-config-google": "^0.14.0",
+    "jsdoc": "^3.6.2"
+  }
+}
