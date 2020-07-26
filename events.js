@@ -47,22 +47,35 @@ $(() => {
             </div>
           </div>
         `);
+    getUploaded();
   });
-});
 
-$(document).on('change', '#file-upload-box', (event) => {
-  const uploadedGif = event.target.files[0];
-  const newForm = new FormData();
-  newForm.append('file', uploadedGif);
+  $(document).on('change', '#file-upload-box', (event) => {
+    const uploadedGif = event.target.files[0];
+    const newForm = new FormData();
+    newForm.append('file', uploadedGif);
 
-  $('#submit-upload-button').click(() => {
-    fetch(`${common.uploadEndpoint}${common.apiKey}`, {
-      method: 'POST',
-      body: newForm,
-    })
-        .then((res) => res.json())
-        .then((data) => data.data)
-        .then((data) => localStorage.setItem('id', data.id))
+    $('#submit-upload-button').click(() => {
+      fetch(`${common.uploadEndpoint}${common.apiKey}`, {
+        method: 'POST',
+        body: newForm,
+      })
+          .then((res) => res.json())
+          .then((data) => data.data)
+          .then((data) => localStorage.setItem('id', data.id))
+    });
   });
+
+  (() => {
+    let offset = 25;
+    $(window).on('scroll', () => {
+      const scrollHeight = $(document).height();
+      const scrollPos = $(window).height() + $(window).scrollTop();
+      if ((scrollHeight - 300 >= scrollPos) / scrollHeight === 0) {
+        getTrending(offset);
+        offset += 25;
+      }
+    });
+  })();
 });
 
