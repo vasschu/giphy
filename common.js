@@ -1,4 +1,4 @@
-/// this is where all constants will be declared
+// this is where all constants will be declared
 
 export const apiKey = 'api_key=7B0fC0XIQT4lIpcETj4FoZRjvantPCul';
 export const trendingEndpoint = 'http://api.giphy.com/v1/gifs/trending?';
@@ -9,3 +9,4 @@ export const $uploadGifs = $('#upload');
 export const $mainGifsContainer = $('.main-gif-container');
 export const $trendingGifs = $('#trending');
 export const $leftNavbarLogo = $('.navbar-left-logo');
+export const $favoriteGifs = $('#favorites');
