@@ -60,9 +60,9 @@ $(document).on('change', '#file-upload-box', (event) => {
       method: 'POST',
       body: newForm,
     })
-      .then((res) => res.json())
-      .then((data) => data.data)
-      .then((data) => localStorage.setItem('id', data.id))
+        .then((res) => res.json())
+        .then((data) => data.data)
+        .then((data) => localStorage.setItem('id', data.id))
   });
 });
 
