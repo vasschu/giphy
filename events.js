@@ -59,5 +59,17 @@ $(() => {
           .then((data) => localStorage.setItem('id', data.id))
     });
   });
+
+  (() => {
+    let offset = 25;
+    $(window).on('scroll', () => {
+      const scrollHeight = $(document).height();
+      const scrollPos = $(window).height() + $(window).scrollTop();
+      if ((scrollHeight - 300 >= scrollPos) / scrollHeight === 0) {
+        getTrending(offset);
+        offset += 25;
+      }
+    });
+  })();
 });
 
