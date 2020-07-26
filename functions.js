@@ -7,3 +7,14 @@ export const visualizeGif = (gif, container) => {
     `);
 };
 
+export const throttleFunction = (func, delay) => {
+  let timerId = null;
+  return () => {
+    if (timerId === null) {
+      func();
+      timerId = setTimeout(() => {
+        timerId = null;
+      }, delay);
+    }
+  }
+}
