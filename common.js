@@ -10,4 +10,5 @@ export const $uploadGifs = $('#upload');
 export const $mainGifsContainer = $('.main-gif-container');
 export const $trendingGifs = $('#trending');
 export const $leftNavbarLogo = $('.navbar-left-logo');
+export const $favoriteGifs = $('#favorites');
 export const $uploadGifFileInputBox = $('#file-upload-box');

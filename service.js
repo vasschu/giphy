@@ -13,6 +13,20 @@ export const getTrending = (offset = 0) => {
 };
 getTrending()
 
+// ---------------
+
+export const getFavorite = () => {
+  const $body = $('.main-gif-container')
+  fetch(`${common.$favoriteGifs}${common.apiKey}`)
+      .then((res) => res.json())
+      .then((data) => data)
+      .then((res) => {
+        res.forEach((element) => visualizeGif(element.images.fixed_height.url, $body));
+      });
+};
+getFavorite();
+
+// ---------------
 export const getUploaded = () => {
   const $body = $('.uploads-container');
   fetch(`${common.getGifsByIdEndpoint}${common.apiKey}&ids=${localStorage.getItem('id')}`) 

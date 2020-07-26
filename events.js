@@ -1,6 +1,6 @@
 // this is where all events will go
 import * as common from './common.js'
-import { getTrending, getUploaded } from './service.js'
+import { getTrending, getUploaded, getFavorite } from './service.js'
 
 $(() => {
   common.$trendingGifs.click((e) => {
@@ -13,6 +13,12 @@ $(() => {
     e.preventDefault()
     common.$mainGifsContainer.empty();
     getTrending();
+  });
+
+  common.$favoriteGifs.click((e) => {
+    e.preventDefault();
+    common.$mainGifsContainer.empty();
+    getFavorite();
   });
 
   common.$uploadGifs.click((e) => {
@@ -41,23 +47,22 @@ $(() => {
             </div>
           </div>
         `);
-    getUploaded();
   });
+});
 
-  $(document).on('change', '#file-upload-box', (event) => {
-    const uploadedGif = event.target.files[0];
-    const newForm = new FormData();
-    newForm.append('file', uploadedGif);
+$(document).on('change', '#file-upload-box', (event) => {
+  const uploadedGif = event.target.files[0];
+  const newForm = new FormData();
+  newForm.append('file', uploadedGif);
 
-    $('#submit-upload-button').click(() => {
-      fetch(`${common.uploadEndpoint}${common.apiKey}`, {
-        method: 'POST',
-        body: newForm,
-      })
-          .then((res) => res.json())
-          .then((data) => data.data)
-          .then((data) => localStorage.setItem('id', data.id))
-    });
+  $('#submit-upload-button').click(() => {
+    fetch(`${common.uploadEndpoint}${common.apiKey}`, {
+      method: 'POST',
+      body: newForm,
+    })
+        .then((res) => res.json())
+        .then((data) => data.data)
+        .then((data) => localStorage.setItem('id', data.id))
   });
 
   (() => {
