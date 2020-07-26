@@ -1,6 +1,6 @@
 // this is where all events will go
 import * as common from './common.js'
-import { getTrending } from './service.js'
+import { getTrending, getUploaded } from './service.js'
 
 $(() => {
   common.$trendingGifs.click((e) => {
@@ -28,17 +28,26 @@ $(() => {
             <div>
               <input type="file" id="file-upload-box"
             </div>
-             <div>
+            <div>
               <input type="submit" id="submit-upload-button" value="Upload">
+            </div>
+            <hr style="margin-top:50px"></hr>
+            <div class="uploads-main-container">
+              <div>
+                <h2>My uploads</h2>
+              </div>
+              <div class="uploads-container">
+              </div>
             </div>
           </div>
         `);
+    getUploaded();
   });
 
   $(document).on('change', '#file-upload-box', (event) => {
     const uploadedGif = event.target.files[0];
     const newForm = new FormData();
-    newForm.append( 'file', uploadedGif );
+    newForm.append('file', uploadedGif);
 
     $('#submit-upload-button').click(() => {
       fetch(`${common.uploadEndpoint}${common.apiKey}`, {
@@ -46,7 +55,8 @@ $(() => {
         body: newForm,
       })
           .then((res) => res.json())
-          .then((data) => console.log(data))
+          .then((data) => data.data)
+          .then((data) => localStorage.setItem('id', data.id))
     });
   });
 });
