@@ -17,7 +17,10 @@ $(() => {
 
   common.$favoriteGifs.click((e) => {
     e.preventDefault();
-    common.$mainGifsContainer.empty();
+    common.$mainGifsContainer.html(`
+          <div class="favorite-gifs-container">
+          </div>
+        `);
     getFavorite();
   });
 
@@ -60,9 +63,9 @@ $(() => {
         method: 'POST',
         body: newForm,
       })
-          .then((res) => res.json())
-          .then((data) => data.data)
-          .then((data) => localStorage.setItem('id', data.id))
+        .then((res) => res.json())
+        .then((data) => data.data)
+        .then((data) => localStorage.setItem('id', data.id))
     });
   });
 
@@ -77,5 +80,9 @@ $(() => {
       }
     });
   })();
+
+  common.getGifsByIdEndpoint.click((e) => {
+  })
+
 });
 
