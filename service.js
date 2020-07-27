@@ -34,7 +34,7 @@ export const getUploaded = () => {
     .then((res) => res.json())
     .then((data) => data.data)
     .then((res) => {
-      res.forEach((element) => visualizeGif(element.images.fixed_height.url, $body));
+      res.forEach((element) => visualizeGif(element.id, element.images.fixed_height.url, $body));
     })
 };
 
@@ -45,6 +45,6 @@ export const searchGif = () => {
     .then(res => res.json())
     .then(data => data.data)
     .then(res => {
-      res.forEach(element => visualizeGif(element.images.fixed_height.url, $body));
+      res.forEach(element => visualizeGif(element.id, element.images.fixed_height.url, $body));
     });
 };

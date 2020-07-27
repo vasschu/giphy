@@ -1,14 +1,7 @@
 // this is where all events will go
 import * as common from './common.js'
-import {
-  getTrending,
-  getUploaded,
-  getFavorite,
-  searchGif
-} from './service.js'
-import {
-  throttleFunction,
-} from './functions.js'
+import { getTrending, getUploaded, getFavorite, searchGif } from './service.js'
+import { throttleFunction } from './functions.js'
 
 $(() => {
   common.$trendingGifs.click((e) => {
@@ -82,8 +75,6 @@ $(() => {
     $(window).on('scroll', throttleFunction(() => {
       const scrollHeight = $(document).height();
       const scrollPos = $(window).height() + $(window).scrollTop();
-      console.log(scrollHeight)
-      console.log(scrollPos)
 
       if (scrollHeight - scrollPos < 2400) {
         getTrending(offset);
@@ -93,7 +84,7 @@ $(() => {
   })();
 
   common.$searchButton.click((e) => {
-    e.preventDefault()
+    e.preventDefault();
     common.$mainGifsContainer.empty();
     searchGif();
   });
@@ -101,10 +92,10 @@ $(() => {
   $(document).on('click', '.single-gif', (event) => {
     const $gifId = $(event.target).attr('id')
     fetch(`${common.trendingEndpoint}${common.apiKey}`)
-      .then((res) => res.json)
+      .then((res) => res.json())
       .then((data) => data.data)
       .then((res) => {
-        res.foreach((element) => {
+        res.forEach((element) => {
           if (element.id === $gifId) {
             common.$mainGifsContainer.html(`
               <div>
@@ -113,7 +104,7 @@ $(() => {
               </div>
             `)
           }
-        })
-      })
-  })
+        });
+      });
+  });
 });
