@@ -101,19 +101,19 @@ $(() => {
   $(document).on('click', '.single-gif', (event) => {
     const $gifId = $(event.target).attr('id')
     fetch(`${common.trendingEndpoint}${common.apiKey}`)
-        .then((res) => res.json)
-        .then((data) => data.data)
-        .then((res) => {
-          res.foreach((element) => {
-            if (element.id === $gifId) {
-              common.$mainGifsContainer.html(`
-                <div>
-                  <img src="${element.images.fixed_height.url}">
-                  <h2>${element.title}</h2>
-                </div>
-              `)
-            }
-          })
+      .then((res) => res.json)
+      .then((data) => data.data)
+      .then((res) => {
+        res.foreach((element) => {
+          if (element.id === $gifId) {
+            common.$mainGifsContainer.html(`
+              <div>
+                <img src="${element.images.fixed_height.url}">
+                <h2>${element.title}</h2>
+              </div>
+            `)
+          }
         })
+      })
   })
 });
