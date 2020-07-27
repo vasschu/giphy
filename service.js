@@ -38,7 +38,7 @@ export const getUploaded = () => {
 };
 
 export const searchGif = () => {
-  let searchTerm = "search";
+  let searchTerm = $('#search-field').val();
   const $body = $('.main-gif-container')
   fetch(`${common.searchEndpoint}${common.queurySearchDeclaration}${searchTerm}&${common.apiKey}&limit=30`)
     .then(res => res.json())
