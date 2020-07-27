@@ -1,7 +1,14 @@
 // this is where all events will go
 import * as common from './common.js'
-import { getTrending, getUploaded, getFavorite } from './service.js'
-import { throttleFunction } from './functions.js'
+import {
+  getTrending,
+  getUploaded,
+  getFavorite,
+  searchGif
+} from './service.js'
+import {
+  throttleFunction
+} from './functions.js'
 
 $(() => {
   common.$trendingGifs.click((e) => {
@@ -58,12 +65,12 @@ $(() => {
 
     $('#submit-upload-button').click(() => {
       fetch(`${common.uploadEndpoint}${common.apiKey}`, {
-        method: 'POST',
-        body: newForm,
-      })
-          .then((res) => res.json())
-          .then((data) => data.data)
-          .then((data) => localStorage.setItem('id', data.id))
+          method: 'POST',
+          body: newForm,
+        })
+        .then((res) => res.json())
+        .then((data) => data.data)
+        .then((data) => localStorage.setItem('id', data.id))
     });
   });
 
@@ -81,5 +88,10 @@ $(() => {
       }
     }, 1200));
   })();
-});
 
+  common.$searchButton.click((e) => {
+    e.preventDefault()
+    common.$mainGifsContainer.empty();
+    searchGif();
+  });
+});
