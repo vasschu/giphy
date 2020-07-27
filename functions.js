@@ -3,7 +3,7 @@
 export const visualizeGif = (gif, container) => {
   const $div = $(container);
   $div.append(`
-    <div style="display: inline-block; margin:15px"><img src="${gif}"></div>
+    <div class="single-gif"; style="display: inline-block; margin:15px"><img src="${gif}"></div>
     `);
 };
 

@@ -85,8 +85,9 @@ $(() => {
     }, 1200));
   })();
 
-  $(document).dblclick(common.getGifByIdEndpoint, (event) => {
-    const selectedGif = event.target.id;
-    common.$favoriteGifs.append(selectedGif)
-  });
+  $(document).on('click', '.single-gif', (event) => {
+    const selectedGif = event.target;
+    console.log(selectedGif);
+  })
+  
 });
