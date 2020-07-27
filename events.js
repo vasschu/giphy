@@ -1,6 +1,7 @@
 // this is where all events will go
 import * as common from './common.js'
 import { getTrending, getUploaded, getFavorite } from './service.js'
+import { throttleFunction } from './functions.js'
 
 $(() => {
   common.$trendingGifs.click((e) => {
@@ -71,14 +72,17 @@ $(() => {
 
   (() => {
     let offset = 25;
-    $(window).on('scroll', () => {
+    $(window).on('scroll', throttleFunction(() => {
       const scrollHeight = $(document).height();
       const scrollPos = $(window).height() + $(window).scrollTop();
-      if ((scrollHeight - 300 >= scrollPos) / scrollHeight === 0) {
+      console.log(scrollHeight)
+      console.log(scrollPos)
+
+      if (scrollHeight - scrollPos < 2400) {
         getTrending(offset);
         offset += 25;
       }
-    });
+    }, 1200));
   })();
 
   $(document).dblclick(common.getGifByIdEndpoint, (event) => {
