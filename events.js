@@ -81,8 +81,8 @@ $(() => {
     });
   })();
 
-  common.getGifsByIdEndpoint.click((e) => {
-  })
-
+  $(document).dblclick(common.getGifByIdEndpoint, (event) => {
+    const selectedGif = event.target.id;
+    common.$favoriteGifs.append(selectedGif)
+  });
 });
-

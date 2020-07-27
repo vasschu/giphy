@@ -17,15 +17,13 @@ getTrending()
 
 export const getFavorite = () => {
   const $body = $('.favorite-gif-container')
-  fetch(`${common.$favoriteGifs}${common.getGifsByIdEndpoint}
-  ${common.apiKey}&ids=${localStorage.getItem('id')}`)
+  fetch(`${common.getGifByIdEndpoint}${common.apiKey}&ids=${localStorage.getItem('id')}`)
     .then((res) => res.json())
-    .then((data) => data)
+    .then((data) => data.data)
     .then((res) => {
       res.forEach((element) => visualizeGif(element.images.fixed_height.url, $body));
     });
 };
-
 
 // ---------------
 export const getUploaded = () => {
