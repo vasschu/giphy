@@ -1,9 +1,10 @@
+/* eslint-disable max-len */
 // this is where all functions will go
 
-export const visualizeGif = (gif, container) => {
+export const visualizeGif = (gif, gifId, container) => {
   const $div = $(container);
   $div.append(`
-    <div class="single-gif"; style="display: inline-block; margin:15px"><img src="${gif}"></div>
+    <div class="single-gif"; style="display: inline-block; margin:15px"><img src="${gif}"; id="${gifId}"></div>
     `);
 };
 

@@ -1,7 +1,14 @@
 // this is where all events will go
 import * as common from './common.js'
-import { getTrending, getUploaded, getFavorite } from './service.js'
-import { throttleFunction } from './functions.js'
+import {
+  getTrending,
+  getUploaded,
+  getFavorite,
+  searchGif
+} from './service.js'
+import {
+  throttleFunction,
+} from './functions.js'
 
 $(() => {
   common.$trendingGifs.click((e) => {
@@ -85,9 +92,28 @@ $(() => {
     }, 1200));
   })();
 
+  common.$searchButton.click((e) => {
+    e.preventDefault()
+    common.$mainGifsContainer.empty();
+    searchGif();
+  });
+
   $(document).on('click', '.single-gif', (event) => {
-    const selectedGif = event.target;
-    console.log(selectedGif);
+    const $gifId = $(event.target).attr('id')
+    fetch(`${common.trendingEndpoint}${common.apiKey}`)
+        .then((res) => res.json)
+        .then((data) => data.data)
+        .then((res) => {
+          res.foreach((element) => {
+            if (element.id === $gifId) {
+              common.$mainGifsContainer.html(`
+                <div>
+                  <img src="${element.images.fixed_height.url}">
+                  <h2>${element.title}</h2>
+                </div>
+              `)
+            }
+          })
+        })
   })
-  
 });
