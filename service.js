@@ -1,8 +1,9 @@
+/* eslint-disable indent */
 /* eslint-disable max-len */
 // / this is where fetch requests will go
 import * as common from './common.js'
 import {
-  visualizeGif
+  visualizeGif,
 } from './functions.js'
 
 export const getTrending = (offset = 0) => {
@@ -41,10 +42,15 @@ export const getUploaded = () => {
 export const searchGif = () => {
   let searchTerm = $('#search-field').val();
   const $body = $('.main-gif-container')
-  fetch(`${common.searchEndpoint}${common.queurySearchDeclaration}${searchTerm}&${common.apiKey}&limit=30`)
-    .then(res => res.json())
-    .then(data => data.data)
-    .then(res => {
-      res.forEach(element => visualizeGif(element.id, element.images.fixed_height.url, $body));
+  $body.prepend(`
+  <div class="search-info">
+  <h2>Search results for: ${searchTerm}</h2>
+  </div>
+  `);
+  fetch(`${common.searchEndpoint}${common.queurySearchDeclaration}${searchTerm}&${common.apiKey}&limit=20`)
+    .then((res) => res.json())
+    .then((data) => data.data)
+    .then((res) => {
+      res.forEach((element) => visualizeGif(element.id, element.images.fixed_height.url, $body));
     });
 };
