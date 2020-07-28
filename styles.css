@@ -97,8 +97,6 @@ body {
     bottom: 0;
     margin: auto;
     border-radius: 6px;
-    pointer-events: none;
-
 }
 
 .single-gif img {
@@ -111,4 +109,8 @@ body {
 .single-gif img:hover {
     border-color: lightgray;
     border-style: solid
+}
+
+button {
+    cursor: pointer
 }

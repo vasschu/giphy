@@ -19,12 +19,12 @@ getTrending()
 // ---------------
 
 export const getFavorite = () => {
-  const $body = $('.favorite-gif-container')
-  fetch(`${common.getGifByIdEndpoint}${common.apiKey}&ids=${localStorage.getItem('id')}`)
+  const $body = $('.main-gif-container');
+  fetch(`${common.getGifsByIdEndpoint}${common.apiKey}&ids=${localStorage.getItem('favorite-id')}`)
     .then((res) => res.json())
     .then((data) => data.data)
     .then((res) => {
-      res.forEach((element) => visualizeGif(element.images.fixed_height.url, $body));
+      res.forEach((element) => visualizeGif(element.id, element.images.fixed_height.url, $body));
     });
 };
 getFavorite();

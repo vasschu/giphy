@@ -123,8 +123,9 @@ $(() => {
                 <img src="${element.images.downsized_large.url}">
                 </div>
                 <div>
-                <button class="add-favorites-button">LIKE</button>
-                <button class="link-to-giphy">Link to giphy</button>
+                <button id="add-favorites-button">LIKE</button>
+                <button id="link-to-giphy">Link to giphy</button>
+                <button id="remove">remove from favorites</button>
                 </div>
                 <div style ="left: 0;
                 right: 0; 
@@ -133,11 +134,17 @@ $(() => {
                 margin: auto;">
               </div>
               `)
-            }
-          });
+            $(document).on('click', '#add-favorites-button', () => {
+              localStorage.setItem(`favorite-id`, $gifId)
+            })
+            $(document).on('click', '#remove', () => {
+              localStorage.removeItem(`favorite-id`, $gifId)
+            })
+          }
         });
-        $(document).on('click', '#main-body', () => {
-        common.$displaySingleGifContainer.empty();
-        })
       });
+    // $(document).on('click', '#main-body', () => {
+    // common.$displaySingleGifContainer.empty();
+    // })
+  });
 });
