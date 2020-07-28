@@ -1,7 +1,15 @@
+/* eslint-disable indent */
 // this is where all events will go
 import * as common from './common.js'
-import { getTrending, getUploaded, getFavorite, searchGif } from './service.js'
-import { throttleFunction } from './functions.js'
+import {
+  getTrending,
+  getUploaded,
+  getFavorite,
+  searchGif
+} from './service.js'
+import {
+  throttleFunction
+} from './functions.js'
 
 $(() => {
   common.$trendingGifs.click((e) => {
@@ -61,9 +69,9 @@ $(() => {
 
     $('#submit-upload-button').click(() => {
       fetch(`${common.uploadEndpoint}${common.apiKey}`, {
-        method: 'POST',
-        body: newForm,
-      })
+          method: 'POST',
+          body: newForm,
+        })
         .then((res) => res.json())
         .then((data) => data.data)
         .then((data) => localStorage.setItem('id', data.id))
@@ -88,6 +96,15 @@ $(() => {
     common.$mainGifsContainer.empty();
     searchGif();
   });
+
+  common.$searchField.on('keypress', function (e) {
+    if (e.which === 13) {
+      e.preventDefault();
+      common.$mainGifsContainer.empty();
+      searchGif();
+    }
+  });
+
 
   $(document).on('click', '.single-gif', (event) => {
     const $gifId = $(event.target).attr('id')
