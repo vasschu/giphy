@@ -69,9 +69,9 @@ $(() => {
 
     $('#submit-upload-button').click(() => {
       fetch(`${common.uploadEndpoint}${common.apiKey}`, {
-          method: 'POST',
-          body: newForm,
-        })
+        method: 'POST',
+        body: newForm,
+      })
         .then((res) => res.json())
         .then((data) => data.data)
         .then((data) => localStorage.setItem('id', data.id))
@@ -114,14 +114,30 @@ $(() => {
       .then((res) => {
         res.forEach((element) => {
           if (element.id === $gifId) {
-            common.$mainGifsContainer.html(`
-              <div>
-                <img src="${element.images.fixed_height.url}">
-                <h2>${element.title}</h2>
+            // common.$mainGifsContainer.css('opacity')
+            common.$displaySingleGifContainer.html(`
+              <div style="background: pink; text-align:center;
+              padding-top: 15px;padding-bottom: 15px;border-radius: 5px">
+              <h2>${element.title}</h2>
+                <div>
+                <img src="${element.images.downsized_large.url}">
+                </div>
+                <div>
+                <button class="add-favorites-button">LIKE</button>
+                <button class="link-to-giphy">Link to giphy</button>
+                </div>
+                <div style ="left: 0;
+                right: 0; 
+                top: 0;
+                bottom: 0;
+                margin: auto;">
               </div>
-            `)
-          }
+              `)
+            }
+          });
         });
+        $(document).on('click', '#main-body', () => {
+        common.$displaySingleGifContainer.empty();
+        })
       });
-  });
 });

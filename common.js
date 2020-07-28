@@ -15,3 +15,4 @@ export const $favoriteGifs = $('#favorites');
 export const $uploadGifFileInputBox = $('#file-upload-box');
 export const $searchButton = $('#submit-search-button');
 export const $searchField = $('#search-field');
+export const $displaySingleGifContainer = $('.display-single-gif-container');
