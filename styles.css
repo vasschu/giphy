@@ -28,8 +28,9 @@
 }
 
 .main-gif-container {
-    margin: 1px;
-    margin-top: 70px;
+    margin: 70px;
+    margin-left: 90px;
+    margin-right: 90px;
     text-align: justify;
     display: list-item;
 }
@@ -97,9 +98,17 @@ body {
     margin: auto;
     border-radius: 6px;
     pointer-events: none;
+
 }
 
 .single-gif img {
     padding: 5px;
     border-radius: 20px;
+    border-color: white;
+    border-style: solid;
+}
+
+.single-gif img:hover {
+    border-color: lightgray;
+    border-style: solid
 }
