@@ -3,7 +3,7 @@
 // / this is where fetch requests will go
 import * as common from './common.js'
 import {
-  visualizeGif,
+  visualizeGif
 } from './functions.js'
 
 export const getTrending = (offset = 0) => {
@@ -38,18 +38,11 @@ export const getUploaded = () => {
     })
 };
 
-export const searchGif = (offset = 0) => {
-  let searchTerm = $('#search-field').val();
-  const $body = $('.main-gif-container')
-  $body.prepend(`
-  <div class="search-info">
-  <h2>Search results for: ${searchTerm}</h2>
-  </div>
-  `);
+export const searchGif = (searchTerm, offset = 0) => {
   fetch(`${common.searchEndpoint}${common.queurySearchDeclaration}${searchTerm}&${common.apiKey}&offset=${offset}`)
     .then((res) => res.json())
     .then((data) => data.data)
     .then((res) => {
-      res.forEach((element) => visualizeGif(element.id, element.images.fixed_height.url, $body));
+      res.forEach((element) => visualizeGif(element.id, element.images.fixed_height.url, common.$mainGifsContainer));
     });
 };

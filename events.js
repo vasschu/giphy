@@ -5,11 +5,12 @@ import {
   getTrending,
   getUploaded,
   getFavorite,
-  searchGif
+  searchGif,
 } from './service.js'
 import {
   throttleFunction,
-  openGif
+  openGif,
+  displaySearchWord
 } from './functions.js'
 
 let typeOfContent = 'trending';
@@ -103,23 +104,29 @@ $(() => {
     }, 1200));
   })();
 
+  //event trigering search on button click.
   common.$searchButton.click((e) => {
     e.preventDefault();
     common.$mainGifsContainer.empty();
-    searchGif();
+    let searchTerm = $('#search-field').val()
+    displaySearchWord(searchTerm, common.$mainGifsContainer)
+    searchGif(searchTerm);
     typeOfContent = 'search';
   });
 
+  // event trigering search on enter
   common.$searchField.on('keypress', function (e) {
     if (e.which === 13) {
       e.preventDefault();
       common.$mainGifsContainer.empty();
-      searchGif();
+      let searchTerm = $('#search-field').val()
+      displaySearchWord(searchTerm, common.$mainGifsContainer)
+      searchGif(searchTerm);
       typeOfContent = 'search';
     }
   });
 
-
+  // the event that trigers to open signel gif details
   $(document).on('click', '.single-gif', (event) => {
     const $gifId = $(event.target).attr('id')
     openGif($gifId)
