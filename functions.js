@@ -42,7 +42,7 @@ export const openGif = (id) => {
           <img src="${element.images.downsized_large.url}">
           </div>
           <div>
-          <button id="add-favorites-button">LIKE</button>
+          <button id="add-favorites-button" style="color:red">❤</button>
           <button id="link-to-giphy">Link to giphy</button>
           <button id="remove">remove from favorites</button>
           </div>

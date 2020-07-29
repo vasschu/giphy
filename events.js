@@ -14,6 +14,9 @@ import {
 } from './functions.js'
 
 let typeOfContent = 'trending';
+let searchTerm = $('#search-field').val()
+let searchOffset = 25;
+let trendingOffset = 25;
 
 $(() => {
   common.$trendingGifs.click((e) => {
@@ -80,19 +83,18 @@ $(() => {
         .then((res) => res.json())
         .then((data) => data.data)
         .then((data) => localStorage.setItem('id', data.id))
+        getUploaded();
     });
   });
 
   (() => {
-    let searchOffset = 25;
-    let trendingOffset = 25;
     $(window).on('scroll', throttleFunction(() => {
       const scrollHeight = $(document).height();
       const scrollPos = $(window).height() + $(window).scrollTop();
       if (scrollHeight - scrollPos < 2400) {
         if (typeOfContent === 'search') {
           trendingOffset = 25;
-          searchGif(searchOffset)
+          searchGif(searchTerm, searchOffset);
           searchOffset += 25;
         }
         if (typeOfContent === 'trending') {
@@ -108,10 +110,11 @@ $(() => {
   common.$searchButton.click((e) => {
     e.preventDefault();
     common.$mainGifsContainer.empty();
-    let searchTerm = $('#search-field').val()
+    searchTerm = $('#search-field').val()
     displaySearchWord(searchTerm, common.$mainGifsContainer)
     searchGif(searchTerm);
     typeOfContent = 'search';
+    searchOffset = 25;
   });
 
   // event trigering search on enter
@@ -119,10 +122,11 @@ $(() => {
     if (e.which === 13) {
       e.preventDefault();
       common.$mainGifsContainer.empty();
-      let searchTerm = $('#search-field').val()
+      searchTerm = $('#search-field').val()
       displaySearchWord(searchTerm, common.$mainGifsContainer)
       searchGif(searchTerm);
       typeOfContent = 'search';
+      searchOffset = 25;
     }
   });
 
