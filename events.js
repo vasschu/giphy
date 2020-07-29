@@ -11,7 +11,8 @@ import {
 import {
   throttleFunction,
   openGif,
-  displaySearchWord
+  displaySearchWord,
+  isSearchValid
 } from './functions.js'
 
 let typeOfContent = 'trending';
@@ -97,12 +98,17 @@ $(() => {
   // event trigering search on button click.
   common.$searchButton.click((e) => {
     e.preventDefault();
-    common.$mainGifsContainer.empty();
-    searchTerm = $('#search-field').val()
-    displaySearchWord(searchTerm, common.$mainGifsContainer)
-    searchGif(searchTerm);
-    typeOfContent = 'search';
-    searchOffset = 25;
+    if (isSearchValid() === true) {
+      common.$mainGifsContainer.empty();
+      searchTerm = $('#search-field').val()
+      displaySearchWord(searchTerm, common.$mainGifsContainer)
+      searchGif(searchTerm);
+      typeOfContent = 'search';
+      searchOffset = 25;
+    } else {
+      e.preventDefault();
+      common.$searchField.css('background-color', 'pink')
+    }
   });
 
   // event trigering search on enter
@@ -118,7 +124,7 @@ $(() => {
     }
   });
 
-  // the event that trigers to open singel gif details
+  // the event that trigers to open single gif details
   $(document).on('click', '.single-gif', (event) => {
     const $gifId = $(event.target).attr('id')
     openGif($gifId)

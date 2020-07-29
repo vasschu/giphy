@@ -3,7 +3,7 @@
 // / this is where fetch requests will go
 import * as common from './common.js'
 import {
-  visualizeGif
+  visualizeGif,
 } from './functions.js'
 
 /**
@@ -62,5 +62,5 @@ export const searchGif = (searchTerm, offset = 0) => {
     .then((data) => data.data)
     .then((res) => {
       res.forEach((element) => visualizeGif(element.id, element.images.fixed_height.url, common.$mainGifsContainer));
-    });
-};
+    })
+}

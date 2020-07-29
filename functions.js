@@ -96,7 +96,7 @@ export const openGif = (id) => {
 
 
 /**
- * Display the word we searched for before the results of the search.
+ * Display the word we searched for in fornt of the search results.
  * @param {string} searchWord is the string we are searching for. It is extracted from the search input field.
  * @param {jQuerry element} htmlElement is the element where the text will be inserted as prepend (on the top)
  * @return {undefined} functions modifies the HTML and returns undefined.
@@ -108,4 +108,16 @@ export const displaySearchWord = (searchWord, htmlElement) => {
   <h2>Search results for: <span style="color:grey">${searchWord}</span></h2>
   </div>
   `);
+}
+
+/**
+ * Check if the search field has input.
+ * @return {Boolean} True if the input field has string, false if not.
+ */
+
+export const isSearchValid = () => {
+  if (common.$searchField.val() !== '') {
+    return true
+  }
+  return false
 }
