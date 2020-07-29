@@ -30,7 +30,7 @@ export const getFavorite = () => {
 // ---------------
 export const getUploaded = () => {
   const $body = $('.uploads-container');
-  fetch(`${common.getGifsByIdEndpoint}${common.apiKey}&ids=${localStorage.getItem('id')}`)
+  fetch(`${common.getGifsByIdEndpoint}${common.apiKey}&ids=${localStorage.getItem('upload-id')}`)
     .then((res) => res.json())
     .then((data) => data.data)
     .then((res) => {

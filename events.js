@@ -77,14 +77,24 @@ $(() => {
 
     $('#submit-upload-button').click(() => {
       fetch(`${common.uploadEndpoint}${common.apiKey}`, {
-          method: 'POST',
-          body: newForm,
-        })
+        method: 'POST',
+        body: newForm,
+      })
         .then((res) => res.json())
         .then((data) => data.data)
-        .then((data) => localStorage.setItem('id', data.id))
-        getUploaded();
-    });
+        .then((data) => {
+          let uploads = (localStorage.getItem('upload-id'));
+          if (uploads === '' || uploads === null) {
+            localStorage.setItem('upload-id', data.id);
+          } else {
+            uploads = (localStorage.getItem('upload-id')).split(',');
+            if (!uploads.includes(data.id)) {
+              uploads.push(data.id);
+            }
+            localStorage.setItem('upload-id', uploads);
+          }
+        })
+      });
   });
 
   (() => {
