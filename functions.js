@@ -70,7 +70,7 @@ export const openGif = (id) => {
 export const displaySearchWord = (searchWord, body) => {
   body.prepend(`
   <div class="search-info">
-  <h2>Search results for: ${searchWord}</h2>
+  <h2>Search results for: <span style="color:grey">${searchWord}</span></h2>
   </div>
   `);
 }

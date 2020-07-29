@@ -32,7 +32,15 @@
     margin-left: 90px;
     margin-right: 90px;
     text-align: justify;
-    display: list-item;
+    display: inline-block;
+}
+
+h2 {
+    border-bottom: solid;
+    border-color: lightslategrey;
+    padding: 5px;
+    font-family: sans-serif;
+
 }
 
 body {
