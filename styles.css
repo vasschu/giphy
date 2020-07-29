@@ -88,15 +88,47 @@ body {
 }
 
 .display-single-gif-container {
-    height: 600px;
     width: 600px;
+    max-width: 80%;
     position: fixed;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
+    left: 50%;
+    top: 50%;
+    /* transform: translate(-50%, -50%) scale(0); */
     margin: auto;
+    border: 1px solid black;
     border-radius: 6px;
+    z-index: 10;
+    background-color: white;
+}
+
+.display-single-gif-container .active {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.modal-header {
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid black
+}
+
+.modal-header .title {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.modal-header .close-button {
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.modal-body {
+    padding: 10px 15px;
 }
 
 .single-gif img {
