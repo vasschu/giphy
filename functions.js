@@ -35,7 +35,8 @@ export const openGif = (id) => {
           common.$mainGifsContainer.css('pointer-events', 'none').css('opacity', '0.5').css('filter', 'blur(3px)')
           common.$displaySingleGifContainer.html(`
         <div style="background: pink; text-align:center;
-        padding-top: 15px;padding-bottom: 15px;border-radius: 5px;">
+        padding-top: 15px;padding-bottom: 15px; padding-left: 25px;
+        padding-right:25px;border-radius: 5px;">
         <h2>${element.title}</h2>
           <div>
           <img src="${element.images.downsized_large.url}">
@@ -52,10 +53,11 @@ export const openGif = (id) => {
           margin: auto;">
         </div>
         `);
-          $(document).on('click', '#main-body', () => {
+          $(document).on('click', '.container', () => {
             common.$mainGifsContainer.css('pointer-events', '').css('opacity', '').css('filter', 'blur(0)');
+            $('.container').css('z-index', '-5')
             common.$displaySingleGifContainer.empty();
-          });
+          })
           $(document).on('click', '#add-favorites-button', () => {
             localStorage.setItem(`favorite-id`, id);
           });

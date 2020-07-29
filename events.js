@@ -123,5 +123,6 @@ $(() => {
   $(document).on('click', '.single-gif', (event) => {
     const $gifId = $(event.target).attr('id')
     openGif($gifId)
+    $('.container').css('z-index', '5')
   });
 });
