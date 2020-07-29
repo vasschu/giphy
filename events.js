@@ -1,3 +1,4 @@
+/* eslint-disable space-before-function-paren */
 /* eslint-disable indent */
 // this is where all events will go
 import * as common from './common.js'
@@ -43,30 +44,7 @@ $(() => {
 
   common.$uploadGifs.click((e) => {
     e.preventDefault();
-    common.$mainGifsContainer.html(`
-          <div class="upload-gif-container">
-            <div>
-              <h2>Upload a Gif</h2>
-            </div>
-            <div>
-              <p>Uploading a gif is just as easy, as enjoying one.<p> 
-            </div>
-            <div>
-              <input type="file" id="file-upload-box"
-            </div>
-            <div>
-              <input type="submit" id="submit-upload-button" value="Upload">
-            </div>
-            <hr style="margin-top:50px"></hr>
-            <div class="uploads-main-container">
-              <div>
-                <h2>My uploads</h2>
-              </div>
-              <div class="uploads-container">
-              </div>
-            </div>
-          </div>
-        `);
+    common.$mainGifsContainer.html(common.uplaodGifHTML);
     getUploaded();
   });
 
@@ -77,9 +55,9 @@ $(() => {
 
     $('#submit-upload-button').click(() => {
       fetch(`${common.uploadEndpoint}${common.apiKey}`, {
-        method: 'POST',
-        body: newForm,
-      })
+          method: 'POST',
+          body: newForm,
+        })
         .then((res) => res.json())
         .then((data) => data.data)
         .then((data) => {
@@ -94,7 +72,7 @@ $(() => {
             localStorage.setItem('upload-id', uploads);
           }
         })
-      });
+    });
   });
 
   (() => {
@@ -116,7 +94,7 @@ $(() => {
     }, 1200));
   })();
 
-  //event trigering search on button click.
+  // event trigering search on button click.
   common.$searchButton.click((e) => {
     e.preventDefault();
     common.$mainGifsContainer.empty();
@@ -132,7 +110,7 @@ $(() => {
     if (e.which === 13) {
       e.preventDefault();
       common.$mainGifsContainer.empty();
-      searchTerm = $('#search-field').val()
+      searchTerm = common.$searchField.val()
       displaySearchWord(searchTerm, common.$mainGifsContainer)
       searchGif(searchTerm);
       typeOfContent = 'search';
@@ -140,7 +118,7 @@ $(() => {
     }
   });
 
-  // the event that trigers to open signel gif details
+  // the event that trigers to open singel gif details
   $(document).on('click', '.single-gif', (event) => {
     const $gifId = $(event.target).attr('id')
     openGif($gifId)

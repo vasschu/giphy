@@ -12,12 +12,11 @@ import {
  * @return {undefined} functions populates the main gif container with the results by calling the visualizeGif function. Function return undefined.
  */
 export const getTrending = (offset = 0) => {
-  const $body = $('.main-gif-container');
   fetch(`${common.trendingEndpoint}${common.apiKey}&offset=${offset}`)
     .then((res) => res.json())
     .then((data) => data.data)
     .then((res) => {
-      res.forEach((element) => visualizeGif(element.id, element.images.fixed_height.url, $body))
+      res.forEach((element) => visualizeGif(element.id, element.images.fixed_height.url, common.$mainGifsContainer))
     });
 };
 
