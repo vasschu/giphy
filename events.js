@@ -114,6 +114,7 @@ $(() => {
       e.preventDefault();
       common.$mainGifsContainer.empty();
       searchGif();
+      typeOfContent = 'search';
     }
   });
 
