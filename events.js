@@ -11,11 +11,14 @@ import {
   throttleFunction
 } from './functions.js'
 
+let typeOfContent = 'trending';
+
 $(() => {
   common.$trendingGifs.click((e) => {
     e.preventDefault()
     common.$mainGifsContainer.empty();
     getTrending();
+    typeOfContent = 'trending';
   });
 
   common.$leftNavbarLogo.click((e) => {
@@ -79,14 +82,21 @@ $(() => {
   });
 
   (() => {
-    let offset = 25;
+    let searchOffset = 25;
+    let trendingOffset = 25;
     $(window).on('scroll', throttleFunction(() => {
       const scrollHeight = $(document).height();
       const scrollPos = $(window).height() + $(window).scrollTop();
-
       if (scrollHeight - scrollPos < 2400) {
-        getTrending(offset);
-        offset += 25;
+        if (typeOfContent === 'search') {
+          trendingOffset = 25;
+          searchGif(searchOffset)
+          searchOffset += 25;
+        } else if (typeOfContent === 'trending') {
+          searchOffset = 25;
+          getTrending(trendingOffset);
+          trendingOffset += 25;
+        }
       }
     }, 1200));
   })();
@@ -95,6 +105,7 @@ $(() => {
     e.preventDefault();
     common.$mainGifsContainer.empty();
     searchGif();
+    typeOfContent = 'search';
   });
 
   common.$searchField.on('keypress', function (e) {

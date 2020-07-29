@@ -27,7 +27,6 @@ export const getFavorite = () => {
       res.forEach((element) => visualizeGif(element.id, element.images.fixed_height.url, $body));
     });
 };
-getFavorite();
 // ---------------
 export const getUploaded = () => {
   const $body = $('.uploads-container');
@@ -39,7 +38,7 @@ export const getUploaded = () => {
     })
 };
 
-export const searchGif = () => {
+export const searchGif = (offset = 0) => {
   let searchTerm = $('#search-field').val();
   const $body = $('.main-gif-container')
   $body.prepend(`
@@ -47,7 +46,7 @@ export const searchGif = () => {
   <h2>Search results for: ${searchTerm}</h2>
   </div>
   `);
-  fetch(`${common.searchEndpoint}${common.queurySearchDeclaration}${searchTerm}&${common.apiKey}&limit=20`)
+  fetch(`${common.searchEndpoint}${common.queurySearchDeclaration}${searchTerm}&${common.apiKey}&offset=${offset}`)
     .then((res) => res.json())
     .then((data) => data.data)
     .then((res) => {
