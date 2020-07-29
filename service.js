@@ -8,7 +8,7 @@ import {
 
 /**
  * Get data from Giphy using Trenidng Gifs endpoint with our api_key.
- * @param {variable} offset Specifies the starting position of the results. Defaults to 0.
+ * @param {number} offset Specifies the starting position of the results. Defaults to 0.
  * @return {undefined} functions populates the main gif container with the results by calling the visualizeGif function. Function return undefined.
  */
 export const getTrending = (offset = 0) => {
@@ -53,8 +53,8 @@ export const getUploaded = () => {
 /**
  * Get data from Giphy using search argument and the search endpoint with our api_key
  *
- * @param {variable} searchTerm word taken from the search input field.
- * @param {variable} offset Specifies the starting position of the results. Defaults to 0.
+ * @param {string} searchTerm word taken from the search input field.
+ * @param {number} offset Specifies the starting position of the results. Defaults to 0.
  * @return {undefined} functions populates the main gif container with the results by calling the visualizeGif function.  Function return undefined.
  */
 export const searchGif = (searchTerm, offset = 0) => {

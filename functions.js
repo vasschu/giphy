@@ -2,17 +2,33 @@
 /* eslint-disable max-len */
 // this is where all functions will go
 import * as common from './common.js'
-import { getFavorite } from './service.js';
+import {
+  getFavorite
+} from './service.js';
 
-export const visualizeGif = (gifId, gif, container) => {
+
+/**
+ * This is the function that populates the main gif container with the results form the Giphy api.
+ * @param {string} gifId is the Giphy ID provided by the api and assign it to the HTML element.
+ * @param {string} gifURL is the URL adress of the gif to visualize. The adress is provided by the giphy API.
+ * @param {string} container Specifies the html container where to populate the gifs
+ * @return {undefined} functions populates the gif container. Function return undefined.
+ */
+export const visualizeGif = (gifId, gifURL, container) => {
   const $div = $(container);
   $div.append(`
   <div class="single-gif" style="display: inline-block;margin:15px">
-  <img src="${gif}" id="${gifId}";>
+  <img src="${gifURL}" id="${gifId}";>
   </div>
   `);
 };
 
+/**
+ * Get data from Giphy using Trenidng Gifs endpoint with our api_key.
+ * @param {function} func is function populating the main gif cotnainer withthe Giphy ID provided by the api and assign it to the HTML element.
+ * @param {number} delay is the number of mili seconds to delay the execution. This limits the number of requests send to Giphy.
+ * @return {function} functions that must fetch new data from Giphy and append to the main gif container.
+ */
 export const throttleFunction = (func, delay) => {
   let timerId = null;
   return () => {
@@ -63,12 +79,12 @@ export const openGif = (id) => {
             if (favorites === '' || favorites === null) {
               localStorage.setItem('favorite-id', id);
             } else {
-            favorites = (localStorage.getItem('favorite-id')).split(',');
-            if (!favorites.includes(id)) {
-            favorites.push(id);
+              favorites = (localStorage.getItem('favorite-id')).split(',');
+              if (!favorites.includes(id)) {
+                favorites.push(id);
+              }
+              localStorage.setItem(`favorite-id`, favorites);
             }
-            localStorage.setItem(`favorite-id`, favorites);
-          }
           });
           $(document).on('click', '#remove', () => {
             localStorage.removeItem(`favorite-id`, id);
@@ -78,8 +94,16 @@ export const openGif = (id) => {
     });
 }
 
-export const displaySearchWord = (searchWord, body) => {
-  body.prepend(`
+
+/**
+ * Display the word we searched for before the results of the search.
+ * @param {string} searchWord is the string we are searching for. It is extracted from the search input field.
+ * @param {jQuerry element} htmlElement is the element where the text will be inserted as prepend (on the top)
+ * @return {undefined} functions modifies the HTML and returns undefined.
+ */
+
+export const displaySearchWord = (searchWord, htmlElement) => {
+  htmlElement.prepend(`
   <div class="search-info">
   <h2>Search results for: <span style="color:grey">${searchWord}</span></h2>
   </div>
