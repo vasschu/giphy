@@ -108,7 +108,7 @@ $(() => {
 
   $(document).on('click', '.single-gif', (event) => {
     const $gifId = $(event.target).attr('id')
-    fetch(`${common.trendingEndpoint}${common.apiKey}`)
+    fetch(`${common.getGifsByIdEndpoint}${common.apiKey}&ids=${$gifId}`)
       .then((res) => res.json())
       .then((data) => data.data)
       .then((res) => {
