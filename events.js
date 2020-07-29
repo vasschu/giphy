@@ -92,7 +92,8 @@ $(() => {
           trendingOffset = 25;
           searchGif(searchOffset)
           searchOffset += 25;
-        } else if (typeOfContent === 'trending') {
+        }
+        if (typeOfContent === 'trending') {
           searchOffset = 25;
           getTrending(trendingOffset);
           trendingOffset += 25;
