@@ -2,6 +2,7 @@
 /* eslint-disable max-len */
 // this is where all functions will go
 import * as common from './common.js'
+import { getFavorite } from './service.js';
 
 export const visualizeGif = (gifId, gif, container) => {
   const $div = $(container);
@@ -23,7 +24,6 @@ export const throttleFunction = (func, delay) => {
     }
   };
 };
-
 
 export const openGif = (id) => {
   fetch(`${common.getGifsByIdEndpoint}${common.apiKey}&ids=${id}`)
@@ -59,7 +59,16 @@ export const openGif = (id) => {
             common.$displaySingleGifContainer.empty();
           })
           $(document).on('click', '#add-favorites-button', () => {
-            localStorage.setItem(`favorite-id`, id);
+            let favorites = (localStorage.getItem('favorite-id'));
+            if (favorites === '' || favorites === null) {
+              localStorage.setItem('favorite-id', id);
+            } else {
+            favorites = (localStorage.getItem('favorite-id')).split(',');
+            if (!favorites.includes(id)) {
+            favorites.push(id);
+            }
+            localStorage.setItem(`favorite-id`, favorites);
+          }
           });
           $(document).on('click', '#remove', () => {
             localStorage.removeItem(`favorite-id`, id);

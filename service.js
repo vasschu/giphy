@@ -19,7 +19,7 @@ getTrending()
 // ---------------
 
 export const getFavorite = () => {
-  const $body = $('.main-gif-container');
+  const $body = $('.favorite-gifs-container');
   fetch(`${common.getGifsByIdEndpoint}${common.apiKey}&ids=${localStorage.getItem('favorite-id')}`)
     .then((res) => res.json())
     .then((data) => data.data)
