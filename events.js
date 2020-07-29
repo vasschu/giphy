@@ -8,7 +8,8 @@ import {
   searchGif
 } from './service.js'
 import {
-  throttleFunction
+  throttleFunction,
+  openGif
 } from './functions.js'
 
 $(() => {
@@ -69,9 +70,9 @@ $(() => {
 
     $('#submit-upload-button').click(() => {
       fetch(`${common.uploadEndpoint}${common.apiKey}`, {
-        method: 'POST',
-        body: newForm,
-      })
+          method: 'POST',
+          body: newForm,
+        })
         .then((res) => res.json())
         .then((data) => data.data)
         .then((data) => localStorage.setItem('id', data.id))
@@ -108,43 +109,6 @@ $(() => {
 
   $(document).on('click', '.single-gif', (event) => {
     const $gifId = $(event.target).attr('id')
-    fetch(`${common.getGifsByIdEndpoint}${common.apiKey}&ids=${$gifId}`)
-      .then((res) => res.json())
-      .then((data) => data.data)
-      .then((res) => {
-        res.forEach((element) => {
-          if (element.id === $gifId) {
-            // common.$mainGifsContainer.css('opacity')
-            common.$displaySingleGifContainer.html(`
-              <div style="background: pink; text-align:center;
-              padding-top: 15px;padding-bottom: 15px;border-radius: 5px">
-              <h2>${element.title}</h2>
-                <div>
-                <img src="${element.images.downsized_large.url}">
-                </div>
-                <div>
-                <button id="add-favorites-button">LIKE</button>
-                <button id="link-to-giphy">Link to giphy</button>
-                <button id="remove">remove from favorites</button>
-                </div>
-                <div style ="left: 0;
-                right: 0; 
-                top: 0;
-                bottom: 0;
-                margin: auto;">
-              </div>
-              `)
-            $(document).on('click', '#add-favorites-button', () => {
-              localStorage.setItem(`favorite-id`, $gifId)
-            })
-            $(document).on('click', '#remove', () => {
-              localStorage.removeItem(`favorite-id`, $gifId)
-            })
-          }
-        });
-      });
-    // $(document).on('click', '#main-body', () => {
-    // common.$displaySingleGifContainer.empty();
-    // })
+    openGif($gifId)
   });
 });

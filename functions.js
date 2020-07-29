@@ -1,5 +1,7 @@
+/* eslint-disable indent */
 /* eslint-disable max-len */
 // this is where all functions will go
+import * as common from './common.js'
 
 export const visualizeGif = (gifId, gif, container) => {
   const $div = $(container);
@@ -21,3 +23,41 @@ export const throttleFunction = (func, delay) => {
     }
   };
 };
+
+
+export const openGif = (id) => {
+  fetch(`${common.getGifsByIdEndpoint}${common.apiKey}&ids=${id}`)
+    .then((res) => res.json())
+    .then((data) => data.data)
+    .then((res) => {
+      res.forEach((element) => {
+        if (element.id === id) {
+          common.$displaySingleGifContainer.html(`
+        <div style="background: pink; text-align:center;
+        padding-top: 15px;padding-bottom: 15px;border-radius: 5px">
+        <h2>${element.title}</h2>
+          <div>
+          <img src="${element.images.downsized_large.url}">
+          </div>
+          <div>
+          <button id="add-favorites-button">LIKE</button>
+          <button id="link-to-giphy">Link to giphy</button>
+          <button id="remove">remove from favorites</button>
+          </div>
+          <div style ="left: 0;
+          right: 0; 
+          top: 0;
+          bottom: 0;
+          margin: auto;">
+        </div>
+        `)
+          $(document).on('click', '#add-favorites-button', () => {
+            localStorage.setItem(`favorite-id`, id)
+          })
+          $(document).on('click', '#remove', () => {
+            localStorage.removeItem(`favorite-id`, id)
+          })
+        }
+      });
+    });
+}
