@@ -18,7 +18,7 @@ export const displaySingleGifView = (element) => {
           </div>
           <div>
           <button id="add-favorites-button" class="${element.id}" style="color:red">❤</button>
-          <button id="link-to-giphy">Link to giphy</button>
+          <a href='${element.url}' id="link-to-giphy" target="_blank">Link to giphy</button>
           <button id="remove" class="${element.id}">remove from favorites</button>
           </div>
           <div style ="left: 0;

@@ -70,11 +70,10 @@ export const getUploaded = () => {
  *
  * @param {string} searchTerm word taken from the search input field.
  * @param {number} offset Specifies the starting position of the results. Defaults to 0.
- * @return {promise}
+ * @return {void}
  */
 export const searchGif = (searchTerm, offset = 0) => {
   localStorage.setItem('type-of-content', 'search');
-  common.$mainGifsContainer.empty()
   fetch(`${common.searchEndpoint}${common.queurySearchDeclaration}${searchTerm}&${common.apiKey}&offset=${offset}`)
     .then((res) => res.json())
     .then((data) => data.data)

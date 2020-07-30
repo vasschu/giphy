@@ -74,4 +74,3 @@ export const onClickRemoveFavEvent = (callback) => $(document).on('click', '#rem
  * @return { event } An event, binded to the target.
  */
 export const openSingleGifDetailsEvent = (callback) => $(document).on('click', '.single-gif', callback);
-

@@ -12,7 +12,7 @@ import {
   removeFavoriteFunction,
   clickSearch,
   enterKeySearch,
-  openSingleGifDetailsFunction
+  openSingleGifDetailsFunction,
 } from './functions.js'
 
 import {
@@ -26,7 +26,7 @@ import {
   onClickAddFavEvent,
   onClickRemoveFavEvent,
   getSearchGifsKey,
-  openSingleGifDetailsEvent
+  openSingleGifDetailsEvent,
 } from './events.js'
 
 
@@ -55,4 +55,5 @@ $(() => {
   onClickRemoveFavEvent(removeFavoriteFunction);
 
   openSingleGifDetailsEvent(openSingleGifDetailsFunction);
+
 });

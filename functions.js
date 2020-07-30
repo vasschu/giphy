@@ -115,7 +115,6 @@ export const addToFavoritesFunction = (event) => {
     if (!favorites.includes(favoriteGif)) {
       favorites.push(favoriteGif);
     }
-    console.log(favorites)
     localStorage.setItem(`favorite-id`, favorites);
   }
 }
@@ -181,7 +180,6 @@ export const infiniteScrollFunction = () => {
       searchOffset = 25;
       getTrending(trendingOffset);
       trendingOffset += 25;
-      console.log('haha')
     }
   }
 };
@@ -198,7 +196,7 @@ export const clickSearch = (event) => {
   searchTerm = $('#search-field').val()
   displaySearchWord(searchTerm, common.$mainGifsContainer)
   searchGif(searchTerm);
-  typeOfContent = 'search';
+  localStorage.setItem('type-of-content', 'search');
 }
 
 /**
@@ -214,7 +212,7 @@ export const enterKeySearch = (event) => {
     searchTerm = common.$searchField.val()
     displaySearchWord(searchTerm, common.$mainGifsContainer)
     searchGif(searchTerm);
-    typeOfContent = 'search';
+    localStorage.setItem('type-of-content', 'search');
   }
 }
 

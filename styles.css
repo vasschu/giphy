@@ -163,3 +163,8 @@ button {
     z-index: -5;
     position:fixed
 }
+
+a {
+    text-decoration: none;
+    color: rgb(43, 43, 43);
+}
