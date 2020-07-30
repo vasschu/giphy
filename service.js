@@ -11,7 +11,7 @@ import {
  * @return {undefined} functions populates the main gif container with the results by calling the visualizeGif function. Function return undefined.
  */
 export const getTrending = (offset = 0) => {
-  common.$mainGifsContainer.empty()
+  // common.$mainGifsContainer.empty()
   return fetch(`${common.trendingEndpoint}${common.apiKey}&offset=${offset}`)
     .then((res) => res.json())
     .then((data) => data.data)
