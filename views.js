@@ -1,5 +1,3 @@
-/* eslint-disable indent */
-/* eslint-disable max-len */
 import * as common from './common.js'
 
 /**

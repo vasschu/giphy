@@ -1,6 +1,3 @@
-/* eslint-disable indent */
-/* eslint-disable max-len */
-// this is where all functions will go
 import * as common from './common.js'
 import {
   displaySingleGifView
@@ -52,6 +49,7 @@ export const throttleFunction = (func, delay) => {
 export const clearSingleContainerFunction = () => {
   common.$mainGifsContainer.css('pointer-events', '').css('opacity', '').css('filter', 'blur(0)');
   $('.container').css('z-index', '-5')
+  $('.navbar-main').css('z-index', '4')
   common.$displaySingleGifContainer.empty();
 }
 
@@ -218,4 +216,11 @@ export const enterKeySearch = (event) => {
     searchGif(searchTerm);
     typeOfContent = 'search';
   }
+}
+
+export const openSingleGifDetailsFunction = (event) => {
+  const $gifId = $(event.target).attr('id');
+  openGif($gifId);
+  $('.container').css('z-index', '5');
+  $('.navbar-main').css('z-index', '');
 }

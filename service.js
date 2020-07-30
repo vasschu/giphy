@@ -1,6 +1,3 @@
-/* eslint-disable indent */
-/* eslint-disable max-len */
-// / this is where fetch requests will go
 import * as common from './common.js'
 import {
   visualizeGif

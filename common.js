@@ -1,5 +1,3 @@
-// this is where all constants will be declared
-
 export const apiKey = 'api_key=7B0fC0XIQT4lIpcETj4FoZRjvantPCul';
 export const trendingEndpoint = 'http://api.giphy.com/v1/gifs/trending?';
 export const uploadEndpoint = 'https://upload.giphy.com/v1/gifs?';

@@ -1,11 +1,9 @@
-/* eslint-disable max-len */
-// default index export script file;
 import {
   getTrending,
   getFavorite,
-  getUploaded,
-  searchGif
+  getUploaded
 } from './service.js';
+
 import {
   uploadGifFunction,
   infiniteScrollFunction,
@@ -13,8 +11,10 @@ import {
   addToFavoritesFunction,
   removeFavoriteFunction,
   clickSearch,
-  enterKeySearch
+  enterKeySearch,
+  openSingleGifDetailsFunction
 } from './functions.js'
+
 import {
   getTrendingGifs,
   getFavoriteGifs,
@@ -25,9 +25,10 @@ import {
   clearSingleContainerEvent,
   onClickAddFavEvent,
   onClickRemoveFavEvent,
-  getSearchGifsKey
+  getSearchGifsKey,
+  openSingleGifDetailsEvent
 } from './events.js'
-import * as common from './common.js'
+
 
 
 $(() => {
@@ -52,4 +53,6 @@ $(() => {
   onClickAddFavEvent(addToFavoritesFunction)
 
   onClickRemoveFavEvent(removeFavoriteFunction)
+
+  openSingleGifDetailsEvent(openSingleGifDetailsFunction)
 });
