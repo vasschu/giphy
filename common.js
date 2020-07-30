@@ -15,9 +15,9 @@ export const $uploadGifFileInputBox = $('#file-upload-box');
 export const $searchButton = $('#submit-search-button');
 export const $searchField = $('#search-field');
 export const $displaySingleGifContainer = $('.display-single-gif-container');
-
-
-export const uplaodGifHTML = `<div class="upload-gif-container">
+export const $favoriteGifsContainer = $('.favorite-gifs-container');
+export const $uploadedGifsContainer = $('.uploads-container');
+export const uploadGifHTML = `<div class="upload-gif-container">
   <div>
     <h2>Upload a Gif</h2>
   </div>
