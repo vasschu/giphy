@@ -157,23 +157,22 @@ export const infiniteScrollFunction = () => {
   }
 };
 
-common.$searchButton.click((e) => {
-  e.preventDefault();
+export const clickSearch = (event) => {
+  event.preventDefault();
   common.$mainGifsContainer.empty();
   searchTerm = $('#search-field').val()
   displaySearchWord(searchTerm, common.$mainGifsContainer)
   searchGif(searchTerm);
   typeOfContent = 'search';
-});
+}
 
-// event trigering search on enter
-common.$searchField.on('keypress', function (e) {
-  if (e.which === 13) {
-    e.preventDefault();
+export const enterKeySearch = (event) => {
+  if (event.which === 13) {
+    event.preventDefault();
     common.$mainGifsContainer.empty();
     searchTerm = common.$searchField.val()
     displaySearchWord(searchTerm, common.$mainGifsContainer)
     searchGif(searchTerm);
     typeOfContent = 'search';
   }
-});
+}
