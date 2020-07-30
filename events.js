@@ -7,12 +7,7 @@ import {
   openGif,
 } from './functions.js'
 
-let typeOfContent = 'trending';
-let searchTerm = $('#search-field').val()
-// let searchOffset = 25;
-// let trendingOffset = 25;
-
-export const getTrendingGifs = (callback) => $(document).on('click', '#trending, .navbar-left-logo', callback);
+export const getTrendingGifs = (callback, ...args) => $(document).on('click', '#trending, .navbar-left-logo', () => callback(...args));
 export const getFavoriteGifs = (callback) => $(document).on('click', '#favorites', callback);
 export const getUploadedGifs = (callback) => $(document).on('click', '#upload', callback);
 export const getSearchGifsClick = (callback) => $(document).on('click', '#submit-search-button', callback);

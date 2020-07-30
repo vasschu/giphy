@@ -33,7 +33,7 @@ import * as common from './common.js'
 $(() => {
   getTrending()
 
-  getTrendingGifs(getTrending)
+  getTrendingGifs(getTrending, null, true)
 
   getFavoriteGifs(getFavorite)
 

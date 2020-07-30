@@ -86,16 +86,6 @@ export const removeFavoriteFunction = () => {
   localStorage.setItem('favorite-id', favorites);
 }
 
-// $(document).on('click', '#remove', () => {
-//   const favoriteId = $(event.target).attr('class');
-//   const favorites = localStorage.getItem(`favorite-id`).split(',');
-//   const result = favorites.filter((element) => element === favoriteId)
-//   const index = favorites.findIndex((element) => element === result.join(','))
-//   favorites.splice(index, 1);
-//   localStorage.setItem('favorite-id', favorites);
-// });
-
-
 /**
  * Display the word we searched for before the results of the search.
  * @param {string} searchWord is the string we are searching for. It is extracted from the search input field.

@@ -5,6 +5,7 @@ export const trendingEndpoint = 'http://api.giphy.com/v1/gifs/trending?';
 export const uploadEndpoint = 'https://upload.giphy.com/v1/gifs?';
 export const searchEndpoint = 'http://api.giphy.com/v1/gifs/search?';
 export const getGifsByIdEndpoint = 'https://api.giphy.com/v1/gifs?'
+export const getRandomGifIdEndpoint = 'http://api.giphy.com/v1/gifs/random?'
 export const queurySearchDeclaration = '&q=';
 export const $uploadGifs = $('#upload');
 export const $mainGifsContainer = $('.main-gif-container');

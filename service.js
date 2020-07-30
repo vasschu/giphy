@@ -10,8 +10,10 @@ import {
  * @param {number} offset Specifies the starting position of the results. Defaults to 0.
  * @return {undefined} functions populates the main gif container with the results by calling the visualizeGif function. Function return undefined.
  */
-export const getTrending = (offset = 0) => {
-  // common.$mainGifsContainer.empty()
+export const getTrending = (offset = 0, empty) => {
+  if (empty) {
+    common.$mainGifsContainer.empty();
+  }
   return fetch(`${common.trendingEndpoint}${common.apiKey}&offset=${offset}`)
     .then((res) => res.json())
     .then((data) => data.data)
@@ -27,13 +29,22 @@ export const getTrending = (offset = 0) => {
  */
 export const getFavorite = () => {
   common.$mainGifsContainer.empty()
-  return fetch(`${common.getGifsByIdEndpoint}${common.apiKey}&ids=${localStorage.getItem('favorite-id')}`)
-    .then((res) => res.json())
-    .then((data) => data.data)
-    .then((res) => {
-      res.forEach((element) => visualizeGif(element.id, element.images.fixed_height.url, common.$mainGifsContainer));
-    });
-};
+  if (!localStorage.getItem('favorite-id') === false) {
+    fetch(`${common.getGifsByIdEndpoint}${common.apiKey}&ids=${localStorage.getItem('favorite-id')}`)
+      .then((res) => res.json())
+      .then((data) => data.data)
+      .then((res) => {
+        res.forEach((element) => visualizeGif(element.id, element.images.fixed_height.url, common.$mainGifsContainer));
+      });
+  } else {
+    fetch(`${common.getRandomGifIdEndpoint}${common.apiKey}`)
+      .then((res) => res.json())
+      .then((data) => data.data)
+      .then((res) => {
+        visualizeGif(res.id, res.fixed_height_small_url, common.$mainGifsContainer);
+      })
+  }
+}
 /**
  * Get data from Giphy using Get Gifs by ID endpoint with our api_key. Visualize GIFs uploaded with our api key. Uploaded gifs are stored in local storage.
  *
