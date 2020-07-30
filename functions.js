@@ -12,7 +12,7 @@ import {
  * @param {string} gifId is the Giphy ID provided by the api and assign it to the HTML element.
  * @param {string} gifURL is the URL adress of the gif to visualize. The adress is provided by the giphy API.
  * @param {string} container Specifies the html container where to populate the gifs
- * @return {undefined} functions populates the gif container. Function returns undefined.
+ * @return {void} functions populates the gif container. Function returns undefined.
  */
 export const visualizeGif = (gifId, gifURL, container) => {
   const $div = $(container);
@@ -43,7 +43,7 @@ export const throttleFunction = (func, delay) => {
 
 /**
  * Clears the container used for displaying single gifs.
- * @returns {undefined} returns the empty container
+ * @returns {void} returns the empty container
  */
 
 export const clearSingleContainerFunction = () => {
@@ -88,7 +88,7 @@ export const removeFavoriteFunction = () => {
  * Display the word we searched for before the results of the search.
  * @param {string} searchWord is the string we are searching for. It is extracted from the search input field.
  * @param {jQuerry element} htmlElement is the element where the text will be inserted as prepend (on the top)
- * @return {undefined} functions modifies the HTML and returns undefined.
+ * @return {void} functions modifies the HTML and returns undefined.
  */
 
 export const displaySearchWord = (searchWord, htmlElement) => {
@@ -115,6 +115,7 @@ export const addToFavoritesFunction = (event) => {
     if (!favorites.includes(favoriteGif)) {
       favorites.push(favoriteGif);
     }
+    console.log(favorites)
     localStorage.setItem(`favorite-id`, favorites);
   }
 }
@@ -122,7 +123,7 @@ export const addToFavoritesFunction = (event) => {
 /**
  * uploads a file from your computer to the website's local storage
  * @param {event} event occuring when an action is performed with the selected file
- * @returns {undefined} the uploaded file
+ * @returns {void} the uploaded file
  */
 
 export const uploadGifFunction = (event) => {
@@ -143,7 +144,7 @@ export const uploadGifFunction = (event) => {
 /**
  * performs a check confirming that the file is not allready uploaded on the websites local storage and uploads it
  * @param {string} data files' meta data
- * @returns {undefined} the uploaded file
+ * @returns {void} the uploaded file
  */
 
 export const uploadGifLocalStorageId = (data) => {
@@ -161,27 +162,26 @@ export const uploadGifLocalStorageId = (data) => {
 
 let trendingOffset = 25;
 let searchOffset = 25;
-let typeOfContent = 'trending';
-let searchTerm = $('#search-field').val()
-
+let searchTerm = $('#search-field').val();
 /**
  * function generating endless amount of gifs upon scroll
- * @returns {undefined} the generated gifs visualized in the main gif container
+ * @returns {void} the generated gifs visualized in the main gif container
  */
 
 export const infiniteScrollFunction = () => {
   const scrollHeight = $(document).height();
   const scrollPos = $(window).height() + $(window).scrollTop();
   if (scrollHeight - scrollPos < 2400) {
-    if (typeOfContent === 'search') {
+    if (localStorage.getItem('type-of-content') === 'search') {
       trendingOffset = 25;
       searchGif(searchTerm, searchOffset);
       searchOffset += 25;
     }
-    if (typeOfContent === 'trending') {
+    if (localStorage.getItem('type-of-content') === 'trending') {
       searchOffset = 25;
       getTrending(trendingOffset);
       trendingOffset += 25;
+      console.log('haha')
     }
   }
 };
@@ -189,7 +189,7 @@ export const infiniteScrollFunction = () => {
 /**
  * serches for a gif, specified in the serch box by keyword
  * @param {event} event occuring when an action is performed with the selected mouse button
- * @returns {undefined} returns the searched keyword and the found content
+ * @returns {void} returns the searched keyword and the found content
  */
 
 export const clickSearch = (event) => {
@@ -204,7 +204,7 @@ export const clickSearch = (event) => {
 /**
  * serches for a gif, specified in the serch box by keyword
  * @param {event} event occuring when an action is performed with the selected keyboard key
- * @returns {undefined} returns the searched keyword and the found content
+ * @returns {void} returns the searched keyword and the found content
  */
 
 export const enterKeySearch = (event) => {
@@ -218,6 +218,11 @@ export const enterKeySearch = (event) => {
   }
 }
 
+/**
+ * Calls a function to open the gif details in a window, while pushing the other elements back in the z-index.
+ * @param {event} event occuring when an action is performed with the selected target
+ * @returns {void} returns the box with the gif details
+ */
 export const openSingleGifDetailsFunction = (event) => {
   const $gifId = $(event.target).attr('id');
   openGif($gifId);

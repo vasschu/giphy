@@ -34,25 +34,25 @@ import {
 $(() => {
   getTrending()
 
-  getTrendingGifs(getTrending, null, true)
+  getTrendingGifs(getTrending, null, true);
 
-  getFavoriteGifs(getFavorite)
+  getFavoriteGifs(getFavorite);
 
-  getUploadedGifs(getUploaded)
+  getUploadedGifs(getUploaded);
 
-  getSearchGifsClick(clickSearch)
+  getSearchGifsClick(clickSearch);
 
-  getSearchGifsKey(enterKeySearch)
+  getSearchGifsKey(enterKeySearch);
 
-  uploadGifEvent(uploadGifFunction)
+  uploadGifEvent(uploadGifFunction);
 
-  infiniteScrollEvent(infiniteScrollFunction)
+  infiniteScrollEvent(infiniteScrollFunction);
 
-  clearSingleContainerEvent(clearSingleContainerFunction)
+  clearSingleContainerEvent(clearSingleContainerFunction);
 
-  onClickAddFavEvent(addToFavoritesFunction)
+  onClickAddFavEvent(addToFavoritesFunction);
 
-  onClickRemoveFavEvent(removeFavoriteFunction)
+  onClickRemoveFavEvent(removeFavoriteFunction);
 
-  openSingleGifDetailsEvent(openSingleGifDetailsFunction)
+  openSingleGifDetailsEvent(openSingleGifDetailsFunction);
 });

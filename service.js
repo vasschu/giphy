@@ -5,13 +5,14 @@ import {
 /**
  * Get data from Giphy using Trenidng Gifs endpoint with our api_key.
  * @param {number} offset Specifies the starting position of the results. Defaults to 0.
- * @return {undefined} functions populates the main gif container with the results by calling the visualizeGif function. Function return undefined.
+ * @return {void} functions populates the main gif container with the results by calling the visualizeGif function. Function return undefined.
  */
 export const getTrending = (offset = 0, empty) => {
+  localStorage.setItem('type-of-content', 'trending');
   if (empty) {
     common.$mainGifsContainer.empty();
   }
-  return fetch(`${common.trendingEndpoint}${common.apiKey}&offset=${offset}`)
+  fetch(`${common.trendingEndpoint}${common.apiKey}&offset=${offset}`)
     .then((res) => res.json())
     .then((data) => data.data)
     .then((res) => {
@@ -22,35 +23,41 @@ export const getTrending = (offset = 0, empty) => {
 /**
  * Get data from Giphy using Get Gifs by ID endpoint with our api_key. Visualize GIFs marked as favorite. Favorite gifs are stored in local storage.
  *
- * @return {undefined} functions populates the main gif container with the results by calling the visualizeGif function.  Function return undefined.
+ * @return {void} functions populates the main gif container with the results by calling the visualizeGif function.  Function return undefined.
  */
 export const getFavorite = () => {
   common.$mainGifsContainer.empty()
+  localStorage.setItem('type-of-content', 'favorites');
   if (!localStorage.getItem('favorite-id') === false) {
-    fetch(`${common.getGifsByIdEndpoint}${common.apiKey}&ids=${localStorage.getItem('favorite-id')}`)
+    const test = localStorage.getItem('favorite-id').split(',');
+    test.forEach((element) => {
+    fetch(`${common.getGifsByIdEndpoint}${common.apiKey}&ids=${element}`)
       .then((res) => res.json())
       .then((data) => data.data)
       .then((res) => {
         res.forEach((element) => visualizeGif(element.id, element.images.fixed_height.url, common.$mainGifsContainer));
       });
+    })
   } else {
+    common.$mainGifsContainer.empty()
     fetch(`${common.getRandomGifIdEndpoint}${common.apiKey}`)
       .then((res) => res.json())
       .then((data) => data.data)
       .then((res) => {
-        visualizeGif(res.id, res.fixed_height_small_url, common.$mainGifsContainer);
+        visualizeGif(res.id, res.images.fixed_height.url, common.$mainGifsContainer);
       })
   }
 }
 /**
  * Get data from Giphy using Get Gifs by ID endpoint with our api_key. Visualize GIFs uploaded with our api key. Uploaded gifs are stored in local storage.
  *
- * @return {undefined} functions populates the main gif container with the results by calling the visualizeGif function.  Function return undefined.
+ * @return {void} functions populates the main gif container with the results by calling the visualizeGif function.  Function return undefined.
  */
 export const getUploaded = () => {
+  localStorage.setItem('type-of-content', 'upload');
   common.$mainGifsContainer.empty()
   common.$mainGifsContainer.html(common.uploadGifHTML)
-  return fetch(`${common.getGifsByIdEndpoint}${common.apiKey}&ids=${localStorage.getItem('upload-id')}`)
+  fetch(`${common.getGifsByIdEndpoint}${common.apiKey}&ids=${localStorage.getItem('upload-id')}`)
     .then((res) => res.json())
     .then((data) => data.data)
     .then((res) => {
@@ -66,7 +73,9 @@ export const getUploaded = () => {
  * @return {promise}
  */
 export const searchGif = (searchTerm, offset = 0) => {
-  return fetch(`${common.searchEndpoint}${common.queurySearchDeclaration}${searchTerm}&${common.apiKey}&offset=${offset}`)
+  localStorage.setItem('type-of-content', 'search');
+  common.$mainGifsContainer.empty()
+  fetch(`${common.searchEndpoint}${common.queurySearchDeclaration}${searchTerm}&${common.apiKey}&offset=${offset}`)
     .then((res) => res.json())
     .then((data) => data.data)
     .then((res) => {
