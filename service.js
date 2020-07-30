@@ -2,7 +2,9 @@
 /* eslint-disable max-len */
 // / this is where fetch requests will go
 import * as common from './common.js'
-import { visualizeGif } from './views.js'
+import {
+  visualizeGif
+} from './views.js'
 /**
  * Get data from Giphy using Trenidng Gifs endpoint with our api_key.
  * @param {number} offset Specifies the starting position of the results. Defaults to 0.
@@ -63,4 +65,3 @@ export const searchGif = (searchTerm, offset = 0) => {
       res.forEach((element) => visualizeGif(element.id, element.images.fixed_height.url, common.$mainGifsContainer));
     });
 };
-

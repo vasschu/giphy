@@ -2,8 +2,13 @@
 /* eslint-disable max-len */
 // this is where all functions will go
 import * as common from './common.js'
-import { displaySingleGifView } from './views.js'
-import { getTrending, searchGif } from './service.js'
+import {
+  displaySingleGifView
+} from './views.js'
+import {
+  getTrending,
+  searchGif
+} from './service.js'
 
 /**
  * This is the function that populates the main gif container with the results form the Giphy api.
@@ -46,8 +51,8 @@ export const throttleFunction = (func, delay) => {
 
 export const clearSingleContainerFunction = () => {
   common.$mainGifsContainer.css('pointer-events', '').css('opacity', '').css('filter', 'blur(0)');
-    $('.container').css('z-index', '-5')
-    common.$displaySingleGifContainer.empty();
+  $('.container').css('z-index', '-5')
+  common.$displaySingleGifContainer.empty();
 }
 
 /**
@@ -92,11 +97,11 @@ export const removeFavoriteFunction = () => {
 
 
 /**
-* Display the word we searched for before the results of the search.
-* @param {string} searchWord is the string we are searching for. It is extracted from the search input field.
-* @param {jQuerry element} htmlElement is the element where the text will be inserted as prepend (on the top)
-* @return {undefined} functions modifies the HTML and returns undefined.
-*/
+ * Display the word we searched for before the results of the search.
+ * @param {string} searchWord is the string we are searching for. It is extracted from the search input field.
+ * @param {jQuerry element} htmlElement is the element where the text will be inserted as prepend (on the top)
+ * @return {undefined} functions modifies the HTML and returns undefined.
+ */
 
 export const displaySearchWord = (searchWord, htmlElement) => {
   htmlElement.prepend(`
@@ -115,15 +120,15 @@ export const displaySearchWord = (searchWord, htmlElement) => {
 export const addToFavoritesFunction = (event) => {
   const favoriteGif = $(event.target).attr('class');
   let favorites = (localStorage.getItem('favorite-id'));
-    if (favorites === '' || favorites === null) {
-      localStorage.setItem('favorite-id', favoriteGif);
-    } else {
-      favorites = (localStorage.getItem('favorite-id')).split(',');
-      if (!favorites.includes(favoriteGif)) {
-        favorites.push(favoriteGif);
-      }
-      localStorage.setItem(`favorite-id`, favorites);
+  if (favorites === '' || favorites === null) {
+    localStorage.setItem('favorite-id', favoriteGif);
+  } else {
+    favorites = (localStorage.getItem('favorite-id')).split(',');
+    if (!favorites.includes(favoriteGif)) {
+      favorites.push(favoriteGif);
     }
+    localStorage.setItem(`favorite-id`, favorites);
+  }
 }
 
 /**
@@ -134,17 +139,17 @@ export const addToFavoritesFunction = (event) => {
 
 export const uploadGifFunction = (event) => {
   const uploadedGif = event.target.files[0];
-    const newForm = new FormData();
-    newForm.append('file', uploadedGif);
-    $('#submit-upload-button').click(() => {
-      fetch(`${common.uploadEndpoint}${common.apiKey}`, {
-          method: 'POST',
-          body: newForm,
-        })
-        .then((res) => res.json())
-        .then((data) => data.data)
-        .then((data) => uploadGifLocalStorageId(data))
-    });
+  const newForm = new FormData();
+  newForm.append('file', uploadedGif);
+  $('#submit-upload-button').click(() => {
+    fetch(`${common.uploadEndpoint}${common.apiKey}`, {
+        method: 'POST',
+        body: newForm,
+      })
+      .then((res) => res.json())
+      .then((data) => data.data)
+      .then((data) => uploadGifLocalStorageId(data))
+  });
 }
 
 /**
@@ -178,38 +183,37 @@ let searchTerm = $('#search-field').val()
 
 export const infiniteScrollFunction = () => {
   const scrollHeight = $(document).height();
-    const scrollPos = $(window).height() + $(window).scrollTop();
-    if (scrollHeight - scrollPos < 2400) {
-      if (typeOfContent === 'search') {
-        trendingOffset = 25;
-        searchGif(searchTerm, searchOffset);
-        searchOffset += 25;
-      }
-      if (typeOfContent === 'trending') {
-        searchOffset = 25;
-        getTrending(trendingOffset);
-        trendingOffset += 25;
-      }
+  const scrollPos = $(window).height() + $(window).scrollTop();
+  if (scrollHeight - scrollPos < 2400) {
+    if (typeOfContent === 'search') {
+      trendingOffset = 25;
+      searchGif(searchTerm, searchOffset);
+      searchOffset += 25;
     }
-  };
+    if (typeOfContent === 'trending') {
+      searchOffset = 25;
+      getTrending(trendingOffset);
+      trendingOffset += 25;
+    }
+  }
+};
 
-  common.$searchButton.click((e) => {
-    e.preventDefault();
+export const clickSearch = (event) => {
+  event.preventDefault();
+  common.$mainGifsContainer.empty();
+  searchTerm = $('#search-field').val()
+  displaySearchWord(searchTerm, common.$mainGifsContainer)
+  searchGif(searchTerm);
+  typeOfContent = 'search';
+}
+
+export const enterKeySearch = (event) => {
+  if (event.which === 13) {
+    event.preventDefault();
     common.$mainGifsContainer.empty();
-    searchTerm = $('#search-field').val()
+    searchTerm = common.$searchField.val()
     displaySearchWord(searchTerm, common.$mainGifsContainer)
     searchGif(searchTerm);
     typeOfContent = 'search';
-  });
-
-  // event trigering search on enter
-  common.$searchField.on('keypress', function(e) {
-    if (e.which === 13) {
-      e.preventDefault();
-      common.$mainGifsContainer.empty();
-      searchTerm = common.$searchField.val()
-      displaySearchWord(searchTerm, common.$mainGifsContainer)
-      searchGif(searchTerm);
-      typeOfContent = 'search';
-    }
-  });
+  }
+}
