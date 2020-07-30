@@ -32,7 +32,15 @@
     margin-left: 90px;
     margin-right: 90px;
     text-align: justify;
-    display: list-item;
+    display: inline-block;
+}
+
+h2 {
+    border-bottom: solid;
+    border-color: lightslategrey;
+    padding: 5px;
+    font-family: sans-serif;
+
 }
 
 body {
@@ -88,8 +96,7 @@ body {
 }
 
 .display-single-gif-container {
-    width: 600px;
-    max-width: 80%;
+    width: auto;
     position: fixed;
     left: 50%;
     top: 50%;
@@ -140,4 +147,11 @@ body {
 
 button {
     cursor: pointer
+}
+
+.container {
+    height: 100%;
+    width: 100%;
+    z-index: -5;
+    position:fixed
 }
