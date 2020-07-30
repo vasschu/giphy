@@ -198,6 +198,12 @@ export const infiniteScrollFunction = () => {
   }
 };
 
+/**
+ * serches for a gif, specified in the serch box by keyword
+ * @param {event} event occuring when an action is performed with the selected mouse button
+ * @returns {undefined} returns the searched keyword and the found content
+ */
+
 export const clickSearch = (event) => {
   event.preventDefault();
   common.$mainGifsContainer.empty();
@@ -206,6 +212,12 @@ export const clickSearch = (event) => {
   searchGif(searchTerm);
   typeOfContent = 'search';
 }
+
+/**
+ * serches for a gif, specified in the serch box by keyword
+ * @param {event} event occuring when an action is performed with the selected keyboard key
+ * @returns {undefined} returns the searched keyword and the found content
+ */
 
 export const enterKeySearch = (event) => {
   if (event.which === 13) {
