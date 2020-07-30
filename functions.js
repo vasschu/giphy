@@ -10,7 +10,7 @@ import { getTrending, searchGif } from './service.js'
  * @param {string} gifId is the Giphy ID provided by the api and assign it to the HTML element.
  * @param {string} gifURL is the URL adress of the gif to visualize. The adress is provided by the giphy API.
  * @param {string} container Specifies the html container where to populate the gifs
- * @return {undefined} functions populates the gif container. Function return undefined.
+ * @return {undefined} functions populates the gif container. Function returns undefined.
  */
 export const visualizeGif = (gifId, gifURL, container) => {
   const $div = $(container);
@@ -39,11 +39,22 @@ export const throttleFunction = (func, delay) => {
   };
 };
 
+/**
+ * Clears the container used for displaying single gifs.
+ * @returns {undefined} returns the empty container
+ */
+
 export const clearSingleContainerFunction = () => {
   common.$mainGifsContainer.css('pointer-events', '').css('opacity', '').css('filter', 'blur(0)');
     $('.container').css('z-index', '-5')
     common.$displaySingleGifContainer.empty();
 }
+
+/**
+ * retrieves the information for each gif using the Giphy API key
+ * @param {string} id the unique ID for each gif
+ * @returns {function} function displaying 
+ */
 
 export const openGif = (id) => {
   fetch(`${common.getGifsByIdEndpoint}${common.apiKey}&ids=${id}`)
@@ -55,6 +66,11 @@ export const openGif = (id) => {
       })
     });
 }
+
+/**
+ * Removes the selected gif from favorites section
+ * @returns {function} that modifies the favorites section
+ */
 
 export const removeFavoriteFunction = () => {
   const favoriteId = $(event.target).attr('class');
@@ -73,6 +89,8 @@ export const removeFavoriteFunction = () => {
 //   favorites.splice(index, 1);
 //   localStorage.setItem('favorite-id', favorites);
 // });
+
+
 /**
 * Display the word we searched for before the results of the search.
 * @param {string} searchWord is the string we are searching for. It is extracted from the search input field.
@@ -88,6 +106,12 @@ export const displaySearchWord = (searchWord, htmlElement) => {
   `);
 }
 
+/**
+ * performs a check confirming that the gif is not allready in the favorites section and adds it
+ * @param {event} event occuring when the action "add to favorites" is performed with the gif
+ * @returns {function} function that appends the item to the favorites section
+ */
+
 export const addToFavoritesFunction = (event) => {
   const favoriteGif = $(event.target).attr('class');
   let favorites = (localStorage.getItem('favorite-id'));
@@ -101,6 +125,12 @@ export const addToFavoritesFunction = (event) => {
       localStorage.setItem(`favorite-id`, favorites);
     }
 }
+
+/**
+ * uploads a file from your computer to the website's local storage
+ * @param {event} event occuring when an action is performed with the selected file
+ * @returns {undefined} the uploaded file
+ */
 
 export const uploadGifFunction = (event) => {
   const uploadedGif = event.target.files[0];
@@ -116,6 +146,12 @@ export const uploadGifFunction = (event) => {
         .then((data) => uploadGifLocalStorageId(data))
     });
 }
+
+/**
+ * performs a check confirming that the file is not allready uploaded on the websites local storage and uploads it
+ * @param {string} data files' meta data
+ * @returns {undefined} the uploaded file
+ */
 
 export const uploadGifLocalStorageId = (data) => {
   let uploads = (localStorage.getItem('upload-id'));
@@ -134,6 +170,11 @@ let trendingOffset = 25;
 let searchOffset = 25;
 let typeOfContent = 'trending';
 let searchTerm = $('#search-field').val()
+
+/**
+ * function generating endless amount of gifs upon scroll
+ * @returns {undefined} the generated gifs visualized in the main gif container
+ */
 
 export const infiniteScrollFunction = () => {
   const scrollHeight = $(document).height();
