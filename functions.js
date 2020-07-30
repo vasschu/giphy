@@ -54,22 +54,25 @@ export const openGif = (id) => {
         displaySingleGifView(element);
       })
     });
-  $(document).on('click', '#add-favorites-button', () => {
-    let favorites = (localStorage.getItem('favorite-id'));
-    if (favorites === '' || favorites === null) {
-      localStorage.setItem('favorite-id', id);
-    } else {
-      favorites = (localStorage.getItem('favorite-id')).split(',');
-      if (!favorites.includes(id)) {
-        favorites.push(id);
-      }
-      localStorage.setItem(`favorite-id`, favorites);
-    }
-  });
-  $(document).on('click', '#remove', () => {
-    localStorage.removeItem(`favorite-id`, id);
-  });
 }
+
+export const removeFavoriteFunction = () => {
+  const favoriteId = $(event.target).attr('class');
+  const favorites = localStorage.getItem(`favorite-id`).split(',');
+  const result = favorites.filter((element) => element === favoriteId)
+  const index = favorites.findIndex((element) => element === result.join(','))
+  favorites.splice(index, 1);
+  localStorage.setItem('favorite-id', favorites);
+}
+
+// $(document).on('click', '#remove', () => {
+//   const favoriteId = $(event.target).attr('class');
+//   const favorites = localStorage.getItem(`favorite-id`).split(',');
+//   const result = favorites.filter((element) => element === favoriteId)
+//   const index = favorites.findIndex((element) => element === result.join(','))
+//   favorites.splice(index, 1);
+//   localStorage.setItem('favorite-id', favorites);
+// });
 /**
 * Display the word we searched for before the results of the search.
 * @param {string} searchWord is the string we are searching for. It is extracted from the search input field.
@@ -83,6 +86,20 @@ export const displaySearchWord = (searchWord, htmlElement) => {
   <h2>Search results for: <span style="color:grey">${searchWord}</span></h2>
   </div>
   `);
+}
+
+export const addToFavoritesFunction = (event) => {
+  const favoriteGif = $(event.target).attr('class');
+  let favorites = (localStorage.getItem('favorite-id'));
+    if (favorites === '' || favorites === null) {
+      localStorage.setItem('favorite-id', favoriteGif);
+    } else {
+      favorites = (localStorage.getItem('favorite-id')).split(',');
+      if (!favorites.includes(favoriteGif)) {
+        favorites.push(favoriteGif);
+      }
+      localStorage.setItem(`favorite-id`, favorites);
+    }
 }
 
 export const uploadGifFunction = (event) => {

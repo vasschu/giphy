@@ -1,6 +1,5 @@
 /* eslint-disable indent */
 /* eslint-disable max-len */
-import { visualizeGif } from './functions.js';
 import * as common from './common.js'
 
 export const displaySingleGifView = (element) => {
@@ -14,9 +13,9 @@ export const displaySingleGifView = (element) => {
           <img src="${element.images.downsized_large.url}">
           </div>
           <div>
-          <button id="add-favorites-button" style="color:red">❤</button>
+          <button id="add-favorites-button" class="${element.id}" style="color:red">❤</button>
           <button id="link-to-giphy">Link to giphy</button>
-          <button id="remove">remove from favorites</button>
+          <button id="remove" class="${element.id}">remove from favorites</button>
           </div>
           <div style ="left: 0;
           right: 0; 
@@ -26,3 +25,12 @@ export const displaySingleGifView = (element) => {
         </div>
         `);
 }
+
+export const visualizeGif = (gifId, gifURL, container) => {
+    const $div = $(container);
+    $div.append(`
+    <div class="single-gif" style="display: inline-block;margin:15px">
+    <img src="${gifURL}" id="${gifId}";>
+    </div>
+    `);
+  };
