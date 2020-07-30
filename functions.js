@@ -2,10 +2,8 @@
 /* eslint-disable max-len */
 // this is where all functions will go
 import * as common from './common.js'
-import {
-  getFavorite
-} from './service.js';
-
+import { displaySingleGifView } from './views.js'
+import { getTrending, searchGif } from './service.js'
 
 /**
  * This is the function that populates the main gif container with the results form the Giphy api.
@@ -41,66 +39,43 @@ export const throttleFunction = (func, delay) => {
   };
 };
 
+export const clearSingleContainerFunction = () => {
+  common.$mainGifsContainer.css('pointer-events', '').css('opacity', '').css('filter', 'blur(0)');
+    $('.container').css('z-index', '-5')
+    common.$displaySingleGifContainer.empty();
+}
+
 export const openGif = (id) => {
   fetch(`${common.getGifsByIdEndpoint}${common.apiKey}&ids=${id}`)
     .then((res) => res.json())
-    .then((data) => data.data)
+    .then((data) => data.data) // service
     .then((res) => {
       res.forEach((element) => {
-        if (element.id === id) {
-          common.$mainGifsContainer.css('pointer-events', 'none').css('opacity', '0.5').css('filter', 'blur(3px)')
-          common.$displaySingleGifContainer.html(`
-        <div style="background: pink; text-align:center;
-        padding-top: 15px;padding-bottom: 15px; padding-left: 25px;
-        padding-right:25px;border-radius: 5px;">
-        <h2>${element.title}</h2>
-          <div>
-          <img src="${element.images.downsized_large.url}">
-          </div>
-          <div>
-          <button id="add-favorites-button" style="color:red">❤</button>
-          <button id="link-to-giphy">Link to giphy</button>
-          <button id="remove">remove from favorites</button>
-          </div>
-          <div style ="left: 0;
-          right: 0; 
-          top: 0;
-          bottom: 0;
-          margin: auto;">
-        </div>
-        `);
-          $(document).on('click', '.container', () => {
-            common.$mainGifsContainer.css('pointer-events', '').css('opacity', '').css('filter', 'blur(0)');
-            $('.container').css('z-index', '-5')
-            common.$displaySingleGifContainer.empty();
-          })
-          $(document).on('click', '#add-favorites-button', () => {
-            let favorites = (localStorage.getItem('favorite-id'));
-            if (favorites === '' || favorites === null) {
-              localStorage.setItem('favorite-id', id);
-            } else {
-              favorites = (localStorage.getItem('favorite-id')).split(',');
-              if (!favorites.includes(id)) {
-                favorites.push(id);
-              }
-              localStorage.setItem(`favorite-id`, favorites);
-            }
-          });
-          $(document).on('click', '#remove', () => {
-            localStorage.removeItem(`favorite-id`, id);
-          });
-        }
-      });
+        displaySingleGifView(element);
+      })
     });
+  $(document).on('click', '#add-favorites-button', () => {
+    let favorites = (localStorage.getItem('favorite-id'));
+    if (favorites === '' || favorites === null) {
+      localStorage.setItem('favorite-id', id);
+    } else {
+      favorites = (localStorage.getItem('favorite-id')).split(',');
+      if (!favorites.includes(id)) {
+        favorites.push(id);
+      }
+      localStorage.setItem(`favorite-id`, favorites);
+    }
+  });
+  $(document).on('click', '#remove', () => {
+    localStorage.removeItem(`favorite-id`, id);
+  });
 }
-
-
 /**
- * Display the word we searched for before the results of the search.
- * @param {string} searchWord is the string we are searching for. It is extracted from the search input field.
- * @param {jQuerry element} htmlElement is the element where the text will be inserted as prepend (on the top)
- * @return {undefined} functions modifies the HTML and returns undefined.
- */
+* Display the word we searched for before the results of the search.
+* @param {string} searchWord is the string we are searching for. It is extracted from the search input field.
+* @param {jQuerry element} htmlElement is the element where the text will be inserted as prepend (on the top)
+* @return {undefined} functions modifies the HTML and returns undefined.
+*/
 
 export const displaySearchWord = (searchWord, htmlElement) => {
   htmlElement.prepend(`
@@ -109,3 +84,74 @@ export const displaySearchWord = (searchWord, htmlElement) => {
   </div>
   `);
 }
+
+export const uploadGifFunction = (event) => {
+  const uploadedGif = event.target.files[0];
+    const newForm = new FormData();
+    newForm.append('file', uploadedGif);
+    $('#submit-upload-button').click(() => {
+      fetch(`${common.uploadEndpoint}${common.apiKey}`, {
+          method: 'POST',
+          body: newForm,
+        })
+        .then((res) => res.json())
+        .then((data) => data.data)
+        .then((data) => uploadGifLocalStorageId(data))
+    });
+}
+
+export const uploadGifLocalStorageId = (data) => {
+  let uploads = (localStorage.getItem('upload-id'));
+  if (uploads === '' || uploads === null) {
+    localStorage.setItem('upload-id', data.id);
+  } else {
+    uploads = (localStorage.getItem('upload-id')).split(',');
+    if (!uploads.includes(data.id)) {
+      uploads.push(data.id);
+    }
+    localStorage.setItem('upload-id', uploads);
+  }
+}
+
+let trendingOffset = 25;
+let searchOffset = 25;
+let typeOfContent = 'trending';
+let searchTerm = $('#search-field').val()
+
+export const infiniteScrollFunction = () => {
+  const scrollHeight = $(document).height();
+    const scrollPos = $(window).height() + $(window).scrollTop();
+    if (scrollHeight - scrollPos < 2400) {
+      if (typeOfContent === 'search') {
+        trendingOffset = 25;
+        searchGif(searchTerm, searchOffset);
+        searchOffset += 25;
+      }
+      if (typeOfContent === 'trending') {
+        searchOffset = 25;
+        getTrending(trendingOffset);
+        trendingOffset += 25;
+      }
+    }
+  };
+
+  common.$searchButton.click((e) => {
+    e.preventDefault();
+    common.$mainGifsContainer.empty();
+    searchTerm = $('#search-field').val()
+    displaySearchWord(searchTerm, common.$mainGifsContainer)
+    searchGif(searchTerm);
+    typeOfContent = 'search';
+  });
+
+  // event trigering search on enter
+  common.$searchField.on('keypress', function(e) {
+    if (e.which === 13) {
+      e.preventDefault();
+      common.$mainGifsContainer.empty();
+      searchTerm = common.$searchField.val()
+      displaySearchWord(searchTerm, common.$mainGifsContainer)
+      searchGif(searchTerm);
+      typeOfContent = 'search';
+    }
+  });
