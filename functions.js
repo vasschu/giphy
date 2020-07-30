@@ -52,10 +52,19 @@ export const openGif = (id) => {
         </div>
         `)
           $(document).on('click', '#add-favorites-button', () => {
-            localStorage.setItem(`favorite-id`, id)
+            localStorage.setItem(`favorite-id`, id);
+
+            const ids = localStorage.getItem(`favorite-id`, id);
+            if (ids) {
+              const idsArr = Array.from(JSON.parse(ids))
+              idsArr.push([openGif.data.data.id].join(''));
+              localStorage.setItem(`favorite-id`, JSON.stringify(idsArr));
+            } else {
+              localStorage.setItem(`favorite-id`, JSON.stringify([openGif.data.data.id]));
+            }
           })
           $(document).on('click', '#remove', () => {
-            localStorage.removeItem(`favorite-id`, id)
+            localStorage.removeItem(`favorite-id`, id);
           })
         }
       });
