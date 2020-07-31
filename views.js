@@ -18,8 +18,7 @@ export const displaySingleGifView = (element) => {
           </div>
           <div>
           <button id="add-favorites-button" class="${element.id}" style="color:red">❤</button>
-          <a href='${element.url}' id="link-to-giphy" target="_blank">Link to giphy</button>
-          <button id="remove" class="${element.id}">remove from favorites</button>
+          <a href='${element.url}' id="link-to-giphy" target="_blank">Link to giphy</a>
           </div>
           <div style ="left: 0;
           right: 0; 
@@ -29,6 +28,31 @@ export const displaySingleGifView = (element) => {
         </div>
         `);
 }
+
+export const displaySingleGifViewWithRemove = (element) => {
+  common.$mainGifsContainer.css('pointer-events', 'none').css('opacity', '0.5').css('filter', 'blur(3px)')
+  common.$displaySingleGifContainer.html(`
+      <div style="background: pink; text-align:center;
+      padding-top: 15px;padding-bottom: 15px; padding-left: 25px;
+      padding-right:25px;border-radius: 5px;">
+      <h2>${element.title}</h2>
+        <div>
+        <img src="${element.images.downsized_large.url}">
+        </div>
+        <div>
+        <button id="add-favorites-button" class="${element.id}" style="color:red">❤</button>
+        <a href='${element.url}' id="link-to-giphy" target="_blank">Link to giphy</a>
+        <button id="remove" class="${element.id}">remove from favorites</button>
+        </div>
+        <div style ="left: 0;
+        right: 0; 
+        top: 0;
+        bottom: 0;
+        margin: auto;">
+      </div>
+      `);
+}
+
 
 /**
  * Visualizes the gifs in the main gif container.

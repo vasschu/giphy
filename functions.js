@@ -1,6 +1,6 @@
 import * as common from './common.js'
 import {
-  displaySingleGifView
+  displaySingleGifView, displaySingleGifViewWithRemove
 } from './views.js'
 import {
   getTrending,
@@ -64,9 +64,15 @@ export const openGif = (id) => {
     .then((res) => res.json())
     .then((data) => data.data) // service
     .then((res) => {
-      res.forEach((element) => {
-        displaySingleGifView(element);
-      })
+      if (localStorage.getItem('type-of-content') === 'favorites') {
+        res.forEach((element) => {
+          displaySingleGifViewWithRemove(element);
+        })
+      } else {
+        res.forEach((element) => {
+          displaySingleGifView(element);
+        })
+      }
     });
 }
 
@@ -131,9 +137,9 @@ export const uploadGifFunction = (event) => {
   newForm.append('file', uploadedGif);
   $('#submit-upload-button').click(() => {
     fetch(`${common.uploadEndpoint}${common.apiKey}`, {
-        method: 'POST',
-        body: newForm,
-      })
+      method: 'POST',
+      body: newForm,
+    })
       .then((res) => res.json())
       .then((data) => data.data)
       .then((data) => uploadGifLocalStorageId(data))
